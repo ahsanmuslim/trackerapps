@@ -13,10 +13,10 @@ class Role
 
     public function countAccess($role, $controller)
     {
-        $query = "SELECT user_acces.role, role.role, user_acces.controller, controller.nama_controller FROM user_acces 
+        $query = "SELECT user_acces.role, role.role, user_acces.controller, controller.url FROM user_acces 
         JOIN controller ON controller.id=user_acces.controller 
         JOIN role ON role.id=user_acces.role 
-        WHERE user_acces.role =:role AND controller.nama_controller =:controller";
+        WHERE user_acces.role =:role AND controller.url =:controller";
         $this->db->query($query);
         $this->db->bind('role', $role);
         $this->db->bind('controller', $controller);

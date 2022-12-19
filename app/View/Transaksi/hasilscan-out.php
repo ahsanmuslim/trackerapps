@@ -77,6 +77,7 @@ if($data['last'] != false){
 
 <script type="text/javascript">
 
+
 //Validasi pada saat Scan In (mobil masuk Pabrik)
 function validasi()
 {
@@ -90,8 +91,9 @@ function validasi()
     const bad_color  = "#FFD0C6";
 
     let selisih = akhir - awal;
+    console.log(selisih);
 
-    if( akhir <= awal || selisih > 1 ){
+    if( akhir < awal || selisih > 1 ){
         kmakhir.style.backgroundColor = bad_color;
         kmakhir.classList.add('is-invalid')
         btnsimpan.disabled = true;
@@ -106,7 +108,7 @@ function validasi()
         btnsimpan.disabled = false;
     }
 
-
 }
+
 
 </script>

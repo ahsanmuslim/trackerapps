@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Halaman <?= $data['title'] ?></title>
+	<title><?= $data['title'] ?></title>
 	<link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/bootstrap.css">
 </head>
 <body>

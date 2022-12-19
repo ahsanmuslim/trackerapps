@@ -8,8 +8,9 @@ class HomeController extends Controller
     public function index()
     {
         $data['userlogin'] = $this->model('User')->getUser();
+        $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['scan'] = $this->model('Transaksi')->getCounterScan($data['userlogin']['id_user']);
-        $data['title'] = "Tracker App - Home";
+        $data['title'] = "Tracker Apps - Home";
         $this->view('Templates/header', $data);
         $this->view('Home/index', $data);
         $this->view('Templates/footer');

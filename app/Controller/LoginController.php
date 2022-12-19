@@ -13,7 +13,7 @@ class LoginController extends Controller
             header('Location: ' . BASEURL . '/home');
         } else {
             $data['title'] = "Tracker App - Login";
-            $this->view('Auth/index', $data);
+            $this->view('Auth/login', $data);
         }
     }
 

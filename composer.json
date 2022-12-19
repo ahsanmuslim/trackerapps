@@ -19,6 +19,11 @@
         "ramsey/uuid": "^4.6",
         "guzzlehttp/guzzle": "^7.5",
         "vlucas/phpdotenv": "^5.5",
-        "chillerlan/php-qrcode": "^4.3"
+        "chillerlan/php-qrcode": "^4.3",
+        "phpoffice/phpspreadsheet": "^1.25"
+    },
+    "config": {
+
+        "platform-check": false
     }
 }

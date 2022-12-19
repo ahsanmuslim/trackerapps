@@ -3,7 +3,7 @@ namespace Teckindo\TrackerApps\Controller;
 
 use Teckindo\TrackerApps\App\Controller;
 
-class ReportController extends Controller
+class StatusController extends Controller
 {
     private $userlogin;
 
@@ -15,7 +15,6 @@ class ReportController extends Controller
     {
         $data['userlogin'] = $this->userlogin;
         $data['title'] = 'Tracker Apps - Report';
-        $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['report'] = $this->model('Report')->getReportAll();
         $this->view('Templates/header', $data);
         $this->view('Report/index', $data);
@@ -27,7 +26,6 @@ class ReportController extends Controller
         $data['userlogin'] = $this->userlogin;
         $data['tgl'] = $_POST;
         $data['title'] = 'Tracker Apps - Report';
-        $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['report'] = $this->model('Report')->getReportByDate();	
         $this->view('Templates/header', $data);
 		$this->view('Report/cari', $data);

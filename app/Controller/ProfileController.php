@@ -21,6 +21,7 @@ class ProfileController extends Controller
     {
         $data['title'] = "Tracker App - Profile";
 		$data['userlogin'] = $this->userlogin;
+        $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $this->view('templates/header', $data);
         $this->view('Profile/index', $data);
         $this->view('templates/footer');

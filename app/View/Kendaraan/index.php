@@ -16,7 +16,10 @@ use Teckindo\TrackerApps\Helper\Flasher;
         <div class="card mb-2">
             <div class="card-header d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Data Kendaraan</h6>
-                <a href="<?= BASEURL ?>/kendaraan/add" class="btn btn-dark"><i class="fas fa-plus"></i></a>
+                <div class="d-inline">
+                    <a href="<?= BASEURL ?>/kendaraan/add" class="btn btn-dark text-right"><i class="fas fa-plus"></i></a>
+                    <a href="<?= BASEURL ?>/kendaraan" class="btn btn-warning text-right"><i class="fas fa-sync-alt"></i></a>
+                </div>
             </div>
             <div class="card-body">
                 <div class="col-lg-8">
@@ -41,9 +44,12 @@ use Teckindo\TrackerApps\Helper\Flasher;
                                 <th class="judul">No.</th>
                                 <th>No Kendaraan</th>
                                 <th>Tipe Kendaraan</th>
+                                <th>Warna</th>
                                 <th>Tahun</th>
+                                <th>Masa Berlaku</th>
+                                <th>Km</th>
                                 <th>Status</th>
-                                <th>Jam</th>
+                                <th>Last Status</th>
                                 <th class="judul"><i class="fas fa-cog"></i></th>
                             </tr>
                         </thead>
@@ -52,23 +58,31 @@ use Teckindo\TrackerApps\Helper\Flasher;
                             $no = 1;
                             $text = '';
                             foreach ($data['kendaraan'] as $r) : 
-                            if($r['status'] == 'IN'){
-                                $text = 'success';
-                            } else {
-                                $text = 'danger';
-                            }
+                                if($r['status'] == 'IN'){
+                                    $text = 'success';
+                                    $status = 'Available';
+                                } elseif(is_null($r['status'])){
+                                    $status = '';
+                                } else {
+                                    $text = 'danger';
+                                    $status = 'OUT';
+                                }
 
                             ?>
                                 <tr>
                                     <td class="judul"><?= $no++ ?></td>
                                     <td><?= $r['no_polisi'] ?></td>
                                     <td><?= $r['type'] ?></td>
+                                    <td><?= $r['warna'] ?></td>
                                     <td><?= $r['tahun'] ?></td>
-                                    <td class="text-<?= $text ?> font-weight-bold judul"><?= $r['status'] ?></td>
+                                    <td><?= date('d M y', strtotime($r['masa_berlaku'])) ?></td>
+                                    <td><?= $r['km'] ?></td>
+                                    <td class="text-<?= $text ?> font-weight-bold judul"><?= $status ?></td>
                                     <td><?= $r['jam'] ?></td>
                                     <td class="judul">
-                                        <a href="<?= BASEURL ?>/kendaraan/<?= $r['id_mobil'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-pen"></i></a>
-                                        <a href="#" class="btn btn-dark btn-sm tampilModal" data-toggle="modal" data-target="#modalKendaraan" data-mobil="<?= $r['id_mobil']; ?>"><i class="fas fa-qrcode"></i></a>
+                                        <a href="#" class="btn btn-primary btn-sm detailModal" data-toggle="modal" data-target="#modalKendaraan" data-mobil="<?= $r['id_mobil']; ?>"><i class="fas fa-fw fa-eye"></i></a>
+                                        <a href="<?= BASEURL ?>/kendaraan/edit/<?= $r['id_mobil'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-pen"></i></a>
+                                        <a href="#" class="btn btn-dark btn-sm qrcodeModal" data-toggle="modal" data-target="#modalKendaraan" data-mobil="<?= $r['id_mobil']; ?>"><i class="fas fa-qrcode"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -92,21 +106,21 @@ use Teckindo\TrackerApps\Helper\Flasher;
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="judulModal">QR Code Kendaraan</h5>
+				<h5 class="modal-title" id="judulModal"></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
                 <div class="row">
-                    <div class="col-lg text-center" id="qrcode">
+                    <div class="col-lg text-center" id="qr-modal-content">
                         <!-- Genereate QR Code Here -->
+
                     </div>
                 </div>
 			</div>
-			<div class="modal-footer">
-                <a href="<?= BASEURL ?>/kendaraan/print" class="btn btn-dark btn-sm px-3">Print QR</a>
-                <a href="<?= BASEURL ?>/kendaraan/simpan" class="btn btn-warning btn-sm px-3">Simpan QR</a>
+			<div class="modal-footer" id="qr-modal-footer">
+                <!-- Footer Modal  -->
 			</div>
 
 		</div>

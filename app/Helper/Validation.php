@@ -16,6 +16,9 @@ class Validation extends Controller
                 return true;
             }
             return false;
+        } else {
+            Flasher::setFlash('QR CODE tidak Valid !', ''. '', 'danger','' ,'');
+            return true;
         }
         return false;
     }   

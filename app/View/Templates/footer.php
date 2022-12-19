@@ -20,12 +20,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Yakin akan Logout ?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Pilih "Logout" jika Anda yakin akan keluar dari sesi ini.</div>
                 <div class="modal-footer">
                     <button class="btn btn-dark" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-warning" href="<?= BASEURL ?>/logout">Logout</a>
@@ -45,7 +45,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/b-print-2.3.3/fh-3.3.1/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.0/datatables.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="<?= BASEURL; ?>/js/sb-admin-2.min.js"></script>
+    <script src="<?= BASEURL; ?>/js/sb-dark-themes.js"></script>
     <script src="<?= BASEURL; ?>/js/sweetalert2.all.min.js"></script>
     <script src="<?= BASEURL; ?>/js/script.js"></script>
 

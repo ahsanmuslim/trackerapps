@@ -13,10 +13,8 @@
 
 	<link rel="shortcut icon" href="<?= BASEURL ?>/icon/favicon-16x16.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.6.0/css/all.min.css" integrity="sha512-ykRBEJhyZ+B/BIJcBuOyUoIxh0OfdICfHPnPfBy7eIiyJv536ojTCsgX8aqrLQ9VJZHGz4tvYyzOM0lkgmQZGw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="<?= BASEURL ?>/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?= BASEURL ?>/css/sb-dark-themes.css" rel="stylesheet">
     <link href="<?= BASEURL; ?>/css/sweetalert2.min.css" rel="stylesheet">
-    <!-- <link href="<?= BASEURL; ?>/css/font-google.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script> -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/b-print-2.3.3/fh-3.3.1/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.0/datatables.min.css"/>
 </head>
 
@@ -31,37 +29,37 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center bg-gray-900" href="<?= BASEURL; ?>/home">
                 <div class="sidebar-brand-icon">
-                    <!-- <i class="fas fa-laptop-code"></i> -->
                     <img src="<?= BASEURL ?>/icon/favicon-32x32.png" alt="firman" class="shadow">
                 </div>
-                <div class="sidebar-brand-text mx-3">Apps</div>
             </a>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link pb-0" href="<?= BASEURL ?>/home">
-                    <i class="fas fa-home fa-fw"></i>
-                    <span>Home</span>
+            <?php
+            use Teckindo\TrackerApps\Helper\ParsingURL;
+
+            $uri = ParsingURL::parseURL();
+            $controller = $uri[0];
+
+            $activeclass = "";
+            $textactive = "";
+
+            foreach ($data['menu'] as $menu):
+
+            if($controller == $menu['url']){
+                $activeclass = 'active';
+                $textactive = 'text-warning';
+            } else {
+                $activeclass = "";
+                $textactive = "";
+            }
+            ?>
+            <li class="nav-item mb-2 <?= $activeclass ?>">
+                <a class="nav-link pb-0 <?= $textactive ?>" href="<?= BASEURL ?>/<?= $menu['url'] ?>">
+                    <i class="<?= $menu['icon'] ?> <?= $textactive ?>"></i>
+                    <span><?= $menu['title'] ?></span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= BASEURL ?>/kendaraan">
-                    <i class="fas fa-car fa-fw"></i>
-                    <span>Kendaraan</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= BASEURL ?>/report">
-                    <i class="fas fa-book fa-fw"></i>
-                    <span>Report</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link pb-0" href="#">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Profile</span>
-                </a>
-            </li>
+            <?php endforeach; ?>
 
         </ul>
         <!-- End of Sidebar -->
@@ -85,11 +83,61 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
+                        <!-- Nav Item - Alerts -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw" data-toggle="tooltip" title="Notification"></i>
+                                <!-- Counter - Alerts -->
+                            </a>
+
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header bg-dark border-dark">
+                                Notification
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-comment-dots text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">no message here</div>
+                                    </div>
+                                </a>              
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Notification</a>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-comments fa-fw" data-toggle="tooltip" title="Chat Message"></i>   
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header bg-dark border-dark">
+                                Chat Message
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-comments text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">click here to chat</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Chat</a>
+                            </div>
+                        </li>
+
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-white small font-weight-bold"><?= $data['userlogin']['nama_user'] ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-white small"><?= $data['userlogin']['nama_user'] ?></span>
                                 <img class="img-profile rounded-circle" src="<?= BASEURL ?>/img/<?= $data['userlogin']['profile'] ?>" alt="profile">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -98,10 +146,6 @@
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>

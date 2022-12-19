@@ -13,23 +13,77 @@ $(document).ready(function () {
     }
 
     //function modal Generate QR Code
-    $('.tampilModal').on('click',function(){
+    $('.qrcodeModal').on('click',function(){
 
         const id = $(this).data('mobil');
-       
+        $('#qrcode').remove();
+        $('#tombolPrint').remove();
+        $('.tombolClose').remove();
+        $('#judulModal').html('QR Code Kendaraan');
+
         $.ajax({
 
             url: url + 'kendaraan/getQRCode',
             data: {id : id},
             method: 'post',
             success: function(data) {
-                $('#qrcode').html(data);
+                $('#qr-modal-content').html(data);
+                $('#qr-modal-footer').append('<button class="btn btn-dark tombolClose" type="button" data-dismiss="modal">Close</button><a href="'+ url + 'kendaraan/print/' + id +'" target="_blank" class="btn btn-warning px-3" id="tombolPrint">Print QR Code</a>');
             }
     
         });
 
     });
 
+    
+    //function modal Tampil Detail
+    $('.detailModal').on('click',function(){
+
+        const id = $(this).data('mobil');
+        $('#qrcode').remove();
+        $('#tombolPrint').remove();
+        $('.tombolClose').remove();
+        $('#judulModal').html('Detail Kendaraan');
+
+        $.ajax({
+
+            url: url + 'kendaraan/detail',
+            data: {id : id},
+            method: 'post',
+            success: function(data) {
+                $('#qr-modal-content').html(data);
+                $('#qr-modal-footer').append('<button class="btn btn-dark tombolClose" type="button" data-dismiss="modal">Close</button>');
+            }
+    
+        });
+
+    });
+
+    //fungsi untuk menampilka nama file ynag di upload
+    $('.custom-file-input').on('change', function () {
+
+        var size =(this.files[0].size);
+
+        if(size > 2000000) {
+            //disabled tomol submit
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+            $(':input[type="submit"]').prop('disabled', true);
+            //menampilkan sweet alert jika file terlalu besar
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'File yang Anda upload lebih dari 2Mb !!',
+            })
+        } else {
+            //merubah value field dengan nama file
+            $(':input[type="submit"]').prop('disabled', false);
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        }
+
+
+    });
 
     //fungsi untuk memanggil datatable Library dengan metode Client Side PRocessing
     $('#tblreport').DataTable({

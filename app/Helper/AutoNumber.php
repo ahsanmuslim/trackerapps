@@ -5,9 +5,9 @@ use Teckindo\TrackerApps\App\Controller;
 
 class AutoNumber extends Controller
 {
-    public function autonum($id_mobil, $divisi): string
+    public function autonum($divisi, $alias): string
     {
-        $lastData = $this->model('Transaksi')->getLastTransaction($id_mobil, $divisi);
+        $lastData = $this->model('Transaksi')->getLastTransaction($divisi);
         $aliasdiv = $this->model('Divisi')->getAliasDivisi($divisi);
 
         if(! $lastData){
@@ -16,7 +16,7 @@ class AutoNumber extends Controller
             $urutan = (int) substr($lastData['nomor'], -4);
             $urutan++;
         }
-        $nomor = $aliasdiv['alias'] . date("dmy") . '-' . sprintf("%04s", $urutan);
+        $nomor = $aliasdiv['alias'] . $alias . date("dmy") . '-' . sprintf("%04s", $urutan);
 
         return $nomor;
     }   

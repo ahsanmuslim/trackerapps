@@ -41,8 +41,8 @@ use Teckindo\TrackerApps\Helper\Flasher;
 
     <div class="row">
         <div class="col-lg-12 mb-5">
-            <a href="<?= BASEURL ?>/transaksi/scanin" class="btn btn-lg btn-success btn-block mb-4 py-5">SCAN IN ( MASUK )</a>
-            <a href="<?= BASEURL ?>/transaksi/scanout" class="btn btn-lg btn-danger btn-block mb-4 py-5">SCAN OUT ( KELUAR )</a>
+            <a href="<?= BASEURL ?>/transaksi/scanin" class="btn btn-lg btn-success btn-block mb-4 py-5" onclick="scanQR('scanin')">SCAN IN (MASUK)</a>
+            <a href="<?= BASEURL ?>/transaksi/scanout" class="btn btn-lg btn-danger btn-block mb-4 py-5" onclick="scanQR('scanout')">SCAN OUT (KELUAR)</a>
         </div>
     </div>
     
@@ -51,3 +51,9 @@ use Teckindo\TrackerApps\Helper\Flasher;
 
 </div>
 <!-- End of Main Content -->
+
+<script>
+    function scanQR(status){
+        Android.scanBarcode(status);
+    }
+</script>

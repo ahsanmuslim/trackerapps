@@ -35,12 +35,11 @@ class Transaksi
 	}
 
 	//get nomor terakhir transaksi
-	public function getLastTransaction($id_mobil, $divisi)
+	public function getLastTransaction($divisi)
 	{
-		$query = "SELECT nomor FROM transaksi WHERE id_mobil=:id_mobil AND divisi=:divisi AND YEAR(tanggal)=YEAR(curdate()) ORDER BY jam DESC LIMIT 1";
+		$query = "SELECT nomor FROM transaksi WHERE divisi=:divisi AND YEAR(tanggal)=YEAR(curdate()) ORDER BY jam DESC LIMIT 1";
 
 		$this->db->query($query);
-		$this->db->bind('id_mobil', $id_mobil);
 		$this->db->bind('divisi', $divisi);
 		return $this->db->Single();
 	}
