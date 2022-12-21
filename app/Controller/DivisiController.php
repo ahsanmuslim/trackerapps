@@ -3,7 +3,7 @@ namespace Teckindo\TrackerApps\Controller;
 
 use Teckindo\TrackerApps\App\Controller;
 
-class RoleController extends Controller
+class DivisiController extends Controller
 {
     private $userlogin;
 
@@ -14,13 +14,14 @@ class RoleController extends Controller
     public function index()
     {
         $data['userlogin'] = $this->userlogin;
-        $data['title'] = 'Tracker Apps - Report';
-        $data['report'] = $this->model('Report')->getReportAll();
+        $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
+        $data['title'] = 'Tracker Apps - Divisi';
+        $data['divisi'] = $this->model('Divisi')->getDivisiAll();
         $this->view('Templates/header', $data);
-        $this->view('Report/index', $data);
+        $this->view('Divisi/index', $data);
         $this->view('Templates/footer');
     }
-    
+
     public function add()
     {
         $data['userlogin'] = $this->userlogin;
@@ -46,4 +47,5 @@ class RoleController extends Controller
     {
         
     }
+    
 }

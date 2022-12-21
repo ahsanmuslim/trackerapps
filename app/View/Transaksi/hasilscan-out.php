@@ -3,9 +3,10 @@
 use Teckindo\TrackerApps\Services\Security;
 $csrftoken = Security::csrfToken();
 
-$last = 0;
 if($data['last'] != false){
     $last = $data['last']['km'];
+} else {
+    $last = $data['mobil']['km'];
 }
 
 ?>

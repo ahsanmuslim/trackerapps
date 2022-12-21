@@ -12,6 +12,14 @@ class User
         $this->db = new Database();
     }
 
+    public function getUserAll()
+    {
+        $query = "SELECT * FROM user JOIN role ON role.id=user.role";
+
+		$this->db->query($query);
+		return $this->db->resultSet();
+    }
+
     public function getUser()
     {
         $username = $_SESSION['username'];
@@ -70,4 +78,32 @@ class User
 
         return $this->db->rowCount();
     }
+
+    public function cekUsername()
+    {
+        $username = $_POST['username'];
+        $query = "SELECT count(id_user) FROM " . $this->table . " WHERE username = '$username'";
+        $this->db->query($query);
+        return $this->db->numRow();
+    }
+
+    public function saveData($data)
+    {
+        $query = "INSERT INTO " . $this->table . " 
+        VALUES  
+        (NULL, :username, :namauser, :alias, :role, :password, NULL, :profile, NULL, 'default.jpg', '747278008', NULL)";
+
+        $this->db->query($query);
+
+        $this->db->bind('username', $data['username']);
+        $this->db->bind('namauser', $data['namauser']);
+        $this->db->bind('role', $data['role']);
+        $this->db->bind('password', SHA1($data['password']));
+        $this->db->bind('id_dept', $data['dept']);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
 }

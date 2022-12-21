@@ -125,7 +125,10 @@ class TransaksiController extends Controller
 		if($respon['type']){
             $trans1 = $this->model('Transaksi')->tambahData($_POST, $nomor, $id_user);
             $trans2 = $this->model('Kendaraan')->updateStatus($_POST);
-            if($trans1 > 0 && $trans2 > 0){
+            $trans3 = $this->model('Operator')->updateStatusSopir($_POST);
+            $this->model('Operator')->updateStatusKenek($_POST);
+            
+            if($trans1 > 0 && $trans2 > 0 && $trans3 > 0){
 				Flasher::setFlash('berhasil', 'disimpan', 'success','' , '');
 				header ('Location: ' . BASEURL . '/home' );
 				exit;

@@ -60,6 +60,7 @@ class KendaraanController extends Controller
         $data['mobil'] = $this->model('Kendaraan')->getMobilInfo($_POST['id']);
         $this->view('Kendaraan/detail', $data);
     }
+
     public function save()
     {
         $respon = Security::verifyToken($_POST);
@@ -144,6 +145,11 @@ class KendaraanController extends Controller
     public function download ()
     {
         header('Location: ' . BASEURL . '/file/sample/kendaraan.xlsx');
+    }
+
+    public function delete()
+    {
+        
     }
 
 

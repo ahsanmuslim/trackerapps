@@ -3,9 +3,15 @@
 use Teckindo\TrackerApps\Services\Security;
 $csrftoken = Security::csrfToken();
 
-$last = 0;
+$lastkm = "";
+$lastsopir = "";
+$lastkenek = "";
+$lastdivisi = "";
 if($data['last'] != false){
-    $last = $data['last']['km'];
+    $lastkm = $data['last']['km'];
+    $lastsopir = $data['last']['sopir'];
+    $lastkenek = $data['last']['kenek'];
+    $lastdivisi = $data['last']['divisi'];
 }
 
 ?>
@@ -31,7 +37,7 @@ if($data['last'] != false){
                 <label for="jam">Jam Masuk</label>
                 <input type="datetime" name="jam" id="jam" value="<?= date("Y-m-d H:i:s") ?>" class="form-control mb-3" readonly>
                 <label for="lastkm">Odometer Terakhir</label>
-                <input type="number" name="lastkm" id="lastkm" class="form-control mb-3" value="<?= $last ?>" readonly>
+                <input type="number" name="lastkm" id="lastkm" class="form-control mb-3" value="<?= $lastkm ?>" readonly>
                 <label for="km">Odometer</label>
                 <input type="number" name="km" id="km" class="form-control mb-3" onkeyup="validasi()" required>
                 <div class="invalid-feedback mb-2">
@@ -42,7 +48,7 @@ if($data['last'] != false){
                             <option value=""></option>
                     <?php
                         foreach ($data['divisi'] as $div) { ?>
-                            <option value="<?= $div['id_divisi'] ?>"><?= $div['nama_divisi'] ?></option>
+                            <option value="<?= $div['id_divisi'] ?>" <?php if($div['id_divisi'] == $lastdivisi) {echo 'selected';} ?>><?= $div['nama_divisi'] ?></option>
                     <?php } ?>
                 </select>
                 <label for="sopir">Sopir</label>
@@ -50,15 +56,15 @@ if($data['last'] != false){
                             <option value=""></option>
                     <?php
                         foreach ($data['sopir'] as $sopir) { ?>
-                            <option value="<?= $sopir['nama'] ?>"><?= $sopir['nama'] ?></option>
+                            <option value="<?= $sopir['nama'] ?>" <?php if($sopir['nama'] == $lastsopir) {echo 'selected';} ?>><?= $sopir['nama'] ?></option>
                     <?php } ?>
                 </select>
                 <label for="kenek">Kenek</label>
-                <select name="kenek" id="kenek" class="form-control mb-3" required>
+                <select name="kenek" id="kenek" class="form-control mb-3">
                             <option value=""></option>
                     <?php
                         foreach ($data['kenek'] as $kenek) { ?>
-                            <option value="<?= $kenek['nama'] ?>"><?= $kenek['nama'] ?></option>
+                            <option value="<?= $kenek['nama'] ?>" <?php if($kenek['nama'] == $lastkenek) {echo 'selected';} ?>><?= $kenek['nama'] ?></option>
                     <?php } ?>
                 </select>
                 <label for="keterangan">Keterangan</label>

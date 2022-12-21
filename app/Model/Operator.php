@@ -24,7 +24,7 @@ class Operator
 	//get data Sopir
 	public function getSopir()
 	{
-		$query = "SELECT id, nama FROM operator WHERE jenis=:jenis";
+		$query = "SELECT * FROM operator WHERE jenis=:jenis";
 
 		$this->db->query($query);
 		$this->db->bind('jenis', "Sopir");
@@ -34,11 +34,37 @@ class Operator
 	//get data Kenek
 	public function getKenek()
 	{
-		$query = "SELECT id, nama FROM operator WHERE jenis=:jenis";
+		$query = "SELECT * FROM operator WHERE jenis=:jenis";
 
 		$this->db->query($query);
 		$this->db->bind('jenis', "Kenek");
 		return $this->db->resultSet();
+	}
+
+	//Update status Sopir setelah proses Scan
+	public function updateStatusSopir($data)
+	{
+		$query = 'UPDATE operator SET status=:status, jam=:jam WHERE nama=:sopir';
+		$this->db->query ($query); 
+		$this->db->bind ( 'status', $data['status'] );
+		$this->db->bind ( 'jam', $data['jam'] );
+		$this->db->bind ( 'sopir', $data['sopir'] );
+
+		$this->db->execute();
+		return $this->db->rowCount();
+	}
+
+	//Update status Kenek setelah proses Scan
+	public function updateStatusKenek($data)
+	{
+		$query = 'UPDATE operator SET status=:status, jam=:jam WHERE nama=:kenek';
+		$this->db->query ($query); 
+		$this->db->bind ( 'status', $data['status'] );
+		$this->db->bind ( 'jam', $data['jam'] );
+		$this->db->bind ( 'kenek', $data['kenek'] );
+
+		$this->db->execute();
+		return $this->db->rowCount();
 	}
 
 }

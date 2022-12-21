@@ -30,6 +30,15 @@ class Kendaraan
 		return $this->db->single();
 	}
     
+    //check QR Validasi QR 
+    public function checkQR($id_mobil)
+    {
+        $query = "SELECT count(id_mobil) FROM kendaraan WHERE id_mobil=:id_mobil";
+        $this->db->query($query);
+        $this->db->bind ( 'id_mobil', $id_mobil );
+        return $this->db->numRow();
+    }
+    
     //Update status lokasi Kendaraan setelah proses Scan
     public function updateStatus($data)
     {

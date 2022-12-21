@@ -53,7 +53,7 @@
                 $textactive = "";
             }
             ?>
-            <li class="nav-item mb-2 <?= $activeclass ?>">
+            <li class="nav-item mb-0 <?= $activeclass ?>">
                 <a class="nav-link pb-0 <?= $textactive ?>" href="<?= BASEURL ?>/<?= $menu['url'] ?>">
                     <i class="<?= $menu['icon'] ?> <?= $textactive ?>"></i>
                     <span><?= $menu['title'] ?></span>
@@ -78,7 +78,7 @@
                         <i class="fas fa-bars text-dark"></i>
                     </button>
 
-                    <p class="font-weight-bold h5 text-warning">Tracker Apps</p>
+                    <p class="font-weight-bold h5 text-warning"><a href="<?= BASEURL ?>" class="text-warning text-decoration-none">Tracker Apps</a></p>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
