@@ -12,7 +12,7 @@
 			<div class="error-body text-center p-4">
 				<h3><strong>HTTP ERROR 404</strong></h3>
 				<h5><small>No webpage was found for the web address: <b><?= $data['link'] ?></b></small></h5><br>
-				<a href="<?= BASEURL ?>" class="btn btn-primary">Back to home</a> 
+				<a href="<?= BASEURL ?>" class="btn btn-dark">Back to home</a> 
 			</div>
 		</div>
 	</div>

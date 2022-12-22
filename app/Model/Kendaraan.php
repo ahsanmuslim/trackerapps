@@ -16,7 +16,7 @@ class Kendaraan
     //Get data Kendaraan All
 	public function getKendaraanAll()
 	{
-        $query = 'SELECT * FROM kendaraan ORDER BY jam DESC';
+        $query = "SELECT * FROM " . $this->table . " ORDER BY jam DESC";
 		$this->db->query ($query); 
 		return $this->db->resultSet();
 	}
@@ -33,7 +33,7 @@ class Kendaraan
     //check QR Validasi QR 
     public function checkQR($id_mobil)
     {
-        $query = "SELECT count(id_mobil) FROM kendaraan WHERE id_mobil=:id_mobil";
+        $query = "SELECT count(id_mobil) FROM " . $this->table . " WHERE id_mobil=:id_mobil";
         $this->db->query($query);
         $this->db->bind ( 'id_mobil', $id_mobil );
         return $this->db->numRow();
@@ -42,7 +42,7 @@ class Kendaraan
     //Update status lokasi Kendaraan setelah proses Scan
     public function updateStatus($data)
     {
-        $query = 'UPDATE kendaraan SET status=:status, jam=:jam, km=:km WHERE id_mobil=:id_mobil';
+        $query = "UPDATE " . $this->table . " SET status=:status, jam=:jam, km=:km WHERE id_mobil=:id_mobil";
         $this->db->query ($query); 
         $this->db->bind ( 'status', $data['status'] );
         $this->db->bind ( 'jam', $data['jam'] );
@@ -57,7 +57,7 @@ class Kendaraan
     public function saveData()
     {
 
-        $query = "INSERT INTO kendaraan	VALUES (:id_mobil, :no_polisi, :no_stnk, :nama_stnk, :no_mesin, :no_rangka,  :type, :merk, :jenis, :model, :tahun, :cc, :warna, :lokasi, :bbm, :masa_berlaku, :operasional, :dept, :masa_pakai,  NULL, NULL, NULL)";
+        $query = "INSERT INTO " . $this->table . "	VALUES (:id_mobil, :no_polisi, :no_stnk, :nama_stnk, :no_mesin, :no_rangka,  :type, :merk, :jenis, :model, :tahun, :cc, :warna, :lokasi, :bbm, :masa_berlaku, :operasional, :dept, :masa_pakai,  NULL, NULL, NULL)";
 
 		$this->db->query($query);
 		$this->db->bind('id_mobil', $_POST['id_mobil']);
@@ -87,9 +87,9 @@ class Kendaraan
     //Update data Mobil
     public function updateData($data)
     {
-        $query = 'UPDATE kendaraan 
+        $query = "UPDATE " . $this->table . " 
         SET no_polisi=:no_polisi, no_stnk=:no_stnk, nama_stnk=:nama_stnk, no_mesin=:no_mesin, no_rangka=:no_rangka,  type=:type, merk=:merk, jenis=:jenis, model=:model, tahun=:tahun, cc=:cc, warna=:warna, lokasi=:lokasi, bbm=:bbm, masa_berlaku=:masa_berlaku, operasional=:operasional, dept=:dept, masa_pakai=:masa_pakai 
-        WHERE id_mobil=:id_mobil';
+        WHERE id_mobil=:id_mobil";
 
         $this->db->query ($query); 
 		$this->db->bind('id_mobil', $_POST['id_mobil']);
@@ -118,7 +118,7 @@ class Kendaraan
 
     public function deleteData ($data): int
 	{
-		$query = " DELETE FROM kendaraan WHERE id_mobil =:id_mobil ";
+		$query = " DELETE FROM " . $this->table . " WHERE id_mobil =:id_mobil ";
 
 		$this->db->query($query);
 		$this->db->bind('id_mobil', $data['id_mobil']);
@@ -148,7 +148,7 @@ class Kendaraan
 
         // var_dump($all_data);
 
-        $query_data = "INSERT INTO kendaraan VALUES ";
+        $query_data = "INSERT INTO " . $this->table . " VALUES ";
 
         for ($i=2 ; $i <= count($all_data) ; $i++){
             $id_mobil = bin2hex(random_bytes(16));

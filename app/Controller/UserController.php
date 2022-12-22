@@ -3,6 +3,7 @@ namespace Teckindo\TrackerApps\Controller;
 
 use Teckindo\TrackerApps\App\Controller;
 use Teckindo\TrackerApps\Helper\Flasher;
+use Teckindo\TrackerApps\Services\Security;
 
 class UserController extends Controller
 {
@@ -53,14 +54,52 @@ class UserController extends Controller
         }
     }
 
+    public function edit($id_user)
+    {
+        $data['userlogin'] = $this->userlogin;
+        $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
+        $data['role'] = $this->model('Role')->getRoleAll();
+        $data['user'] = $this->model('User')->getUserInfo($id_user);
+        $data['title'] = 'Tracker Apps - User';
+        $this->view('Templates/header', $data);
+        $this->view('User/edit', $data);
+        $this->view('Templates/footer');
+    }
+
     public function update()
     {
-
+        if ($this->model('User')->updateData($_POST) > 0) {
+            Flasher::setFlash('Berhasil', 'diupdate', 'success', 'user', '');
+            header('Location: ' . BASEURL . '/user');
+            exit;
+        } else {
+            Flasher::setFlash('Gagal', 'diupdate', 'danger', 'user', '');
+            header('Location: ' . BASEURL . '/user');
+            exit;
+        }
     }
 
     public function delete()
     {
-
+		$respon = Security::verifyToken($_POST);
+		if($respon['type']){
+            if ($this->model('Transaksi')->checkTransUser($_POST['id_user']) > 0) {
+                Flasher::setFlash('Tidak bisa', 'dihapus', 'danger', 'user', 'User melakukan transaksi.');
+                header('Location: ' . BASEURL . '/user');
+                exit;
+			} elseif( $this->model('User')->deleteData($_POST) > 0 ){
+				header ('Location: ' . BASEURL . '/user' );
+				exit;
+			} else {
+				Flasher::setFlash('gagal', 'dihapus', 'danger', '', '');
+				header ('Location: ' . BASEURL . '/user' );
+				exit;
+			}
+		} else {
+			Flasher::setFlash($respon['message'], '', 'danger', '', '');
+			header ('Location: ' . BASEURL . '/user' );
+			exit;
+		}
     }
     
 }

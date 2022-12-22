@@ -28,7 +28,7 @@ $csrftoken = Security::csrfToken();
                 </div>
                 <div class="card-body">
                     <div class="col-lg">
-                  
+
                         <form action="<?= BASEURL; ?>/user" method="post" class="needs-validation" novalidate>
                         <input type="hidden" value="<?= $csrftoken ?>" name="csrftoken">
                         
@@ -50,15 +50,15 @@ $csrftoken = Security::csrfToken();
                         </div>
                         <div class="form-group">
                             <label for="alias">Alias</label>
-                            <input type="text" name="alias" id="alias" class="form-control" required maxLength="3" minLength="3" pattern="^[A-Z]*$" autofocus>
+                            <input type="text" name="alias" id="alias" class="form-control" required maxLength="3" minLength="2" pattern="^[A-Z]*$" autofocus>
                             <div class="valid-feedback">Looks good!</div>
                             <div class="invalid-feedback">
                                 Panjang karakter : 2-3 & menggunakan huruf kapital semua !!
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password">Password <small><i>( password default : 12345 )</i></small></label>
-                            <input type="password" name="password" id="password" value="12345" class="form-control" required readonly>
+                            <label for="password">Password <small><i>( password default )</i></small></label>
+                            <input type="password" name="password" id="password" value="firmanindo" class="form-control" required readonly>
                         </div>
                         <div class="form-group">
                             <label for="level">Level User</label>

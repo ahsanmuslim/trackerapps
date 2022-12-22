@@ -1,6 +1,9 @@
 <?php
 
 use Teckindo\TrackerApps\Helper\Flasher;
+use Teckindo\TrackerApps\Services\Security;
+
+$csrftoken = Security::csrfToken();
 
 ?>
 
@@ -10,8 +13,6 @@ use Teckindo\TrackerApps\Helper\Flasher;
     <!-- Page Heading -->
     <h1 class="h3 mb-3 text-gray-800">User</h1>
     
-    <div class="row">
-        <div class="col-lg-12">
 
         <div class="card mb-2">
             <div class="card-header d-flex flex-row align-items-center justify-content-between">
@@ -46,7 +47,7 @@ use Teckindo\TrackerApps\Helper\Flasher;
                                 <th>Username</th>
                                 <th>Alias</th>
                                 <th>Role</th>
-                                <th>Active</th>
+                                <th>Status</th>
                                 <th>Register</th>
                                 <th>Last Activity</th>
                                 <th class="judul"><i class="fas fa-cog"></i></th>
@@ -64,12 +65,22 @@ use Teckindo\TrackerApps\Helper\Flasher;
                                 <td><?= $r['username'] ?></td>
                                 <td><?= $r['alias'] ?></td>
                                 <td><?= $r['role'] ?></td>
-                                <td><?= $r['is_active'] ?></td>
+                                <td><?= ($r['is_active'] == 1) ? "Aktif" : "Tidak Aktif" ?></td>
                                 <td><?= date('d M y', strtotime($r['tgl_register'])) ?></td>
                                 <td><?= $r['last_activity'] ?></td>
                                 <td class="judul">
+                                    <?php
+                                    if($r['role'] == 'admin'){ ?>
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-user-shield"></i></button>
+                                    <?php } else { ?>
                                     <a href="<?= BASEURL ?>/user/edit/<?= $r['id_user'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-pen"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-fw fa-trash"></i></a>
+                                    <form action="<?= BASEURL ?>/user" method="POST" class="d-inline">
+                                        <input type="hidden" value="DELETE" name="_method">
+                                        <input type="hidden" value="<?= $csrftoken ?>" name="csrftoken">
+                                        <input type="hidden" value="<?= $r['id_user']; ?>" name="id_user">
+                                        <button class="btn btn-sm btn-danger tombol-hapus-form"><i class="fas fa-fw fa-trash"></i></button>
+                                    </form>
+                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -77,11 +88,7 @@ use Teckindo\TrackerApps\Helper\Flasher;
                     </table>
                 </div>
             </div>
-
-
         </div>
-    </div>
-
 
 </div>
 <!-- /.container-fluid -->

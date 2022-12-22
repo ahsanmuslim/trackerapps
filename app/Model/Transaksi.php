@@ -5,6 +5,7 @@ use Teckindo\TrackerApps\App\Database;
 class Transaksi 
 {
     private $db;
+	private $table = "transaksi";
 
     public function __construct()
     {
@@ -14,7 +15,7 @@ class Transaksi
 	//Fungsi tambah data Scan Out
 	public function tambahData ($data, $nomor, $id_user): int
 	{
-		$query = "INSERT INTO transaksi	VALUES (:nomor, :id_mobil, :tanggal, :jam, :km, :sopir, :kenek, :divisi, :keterangan, :status, :id_user)";
+		$query = "INSERT INTO ". $this->table . "	VALUES (:nomor, :id_mobil, :tanggal, :jam, :km, :sopir, :kenek, :divisi, :keterangan, :status, :id_user)";
 
 		$this->db->query($query);
 
@@ -37,7 +38,7 @@ class Transaksi
 	//get nomor terakhir transaksi
 	public function getLastTransaction($divisi)
 	{
-		$query = "SELECT nomor FROM transaksi WHERE divisi=:divisi AND YEAR(tanggal)=YEAR(curdate()) ORDER BY jam DESC LIMIT 1";
+		$query = "SELECT nomor FROM ". $this->table . " WHERE divisi=:divisi AND YEAR(tanggal)=YEAR(curdate()) ORDER BY jam DESC LIMIT 1";
 
 		$this->db->query($query);
 		$this->db->bind('divisi', $divisi);
@@ -47,7 +48,7 @@ class Transaksi
 	//Get last status mobil
 	public function getLastStatus($id_mobil)
 	{
-		$query = 'SELECT * FROM transaksi WHERE id_mobil=:id_mobil ORDER BY jam DESC LIMIT 1';
+		$query = "SELECT * FROM ". $this->table . " WHERE id_mobil=:id_mobil ORDER BY jam DESC LIMIT 1";
 		$this->db->query($query); 
 		$this->db->bind ( 'id_mobil', $id_mobil );
 		return $this->db->single();
@@ -56,11 +57,31 @@ class Transaksi
 	//Get counter Scanner
 	public function getCounterScan($id_user)
 	{
-		$query = 'SELECT count(nomor) FROM transaksi WHERE id_user=:id_user';
+		$query = "SELECT count(nomor) FROM ". $this->table . " WHERE id_user=:id_user";
 		$this->db->query($query); 
 		$this->db->bind ( 'id_user', $id_user );
 
 		return $this->db->numRow();
+	}
+
+	//CHeck id user di table transaski
+	public function checkTransUser($id_user)
+	{
+		$query = "SELECT nomor FROM ". $this->table . " WHERE id_user=:id_user";
+        $this->db->query($query);
+        $this->db->bind('id_user', $id_user);
+        $this->db->execute();
+        return $this->db->rowCount();
+	}
+
+	//CHeck id kendaraan di table transaski
+	public function checkTransKendaraan($id_mobil)
+	{
+		$query = "SELECT nomor FROM ". $this->table . " WHERE id_mobil=:id_mobil";
+		$this->db->query($query);
+		$this->db->bind('id_mobil', $id_mobil);
+		$this->db->execute();
+		return $this->db->rowCount();
 	}
 
 }

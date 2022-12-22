@@ -14,10 +14,19 @@ class User
 
     public function getUserAll()
     {
-        $query = "SELECT * FROM user JOIN role ON role.id=user.role";
+        $query = "SELECT * FROM user JOIN role ON role.id=user.role ORDER BY role.role ASC";
 
 		$this->db->query($query);
 		return $this->db->resultSet();
+    }
+
+    //get detail info User
+    public function getUserInfo($id_user)
+    {
+        $query = "SELECT * FROM ". $this->table . " WHERE id_user=:id_user";
+        $this->db->query ($query); 
+        $this->db->bind ( 'id_user', $id_user );
+        return $this->db->single();
     }
 
     public function getUser()
@@ -43,7 +52,7 @@ class User
 
     public function simpanJWT(string $jwt, string $username): void
     {
-        $query = "UPDATE user SET jwt =:jwt WHERE username =:username";
+        $query = "UPDATE " . $this->table . " SET jwt =:jwt WHERE username =:username";
         $this->db->query($query);
 
         $this->db->bind("username", $username);
@@ -54,7 +63,7 @@ class User
     public function hapusJWT(): void
     {
         $username = $_SESSION['username'];
-        $query = "UPDATE user SET jwt = NULL WHERE username =:username";
+        $query = "UPDATE " . $this->table . " SET jwt = NULL WHERE username =:username";
         $this->db->query($query);
 
         $this->db->bind("username", $username);
@@ -63,7 +72,7 @@ class User
 
     public function update($data, $nama_file)
     {
-        $query = "UPDATE " . $this->table . " SET 
+        $query = "UPDATE c SET 
                     nama_user =:namauser,
                     profile =:profile
                     WHERE id_user =:id_user";
@@ -89,12 +98,15 @@ class User
 
     public function saveData($data)
     {
+        $id_user = bin2hex(random_bytes(8));
+
         $query = "INSERT INTO " . $this->table . " 
         VALUES  
-        (NULL, :username, :namauser, :alias, :role, :password, NULL, 'default.jpg', NULL, :is_active, NULL)";
+        (:id_user, :username, :namauser, :alias, :role, :password, NULL, 'default.jpg', NULL, :is_active, NULL)";
 
         $this->db->query($query);
 
+        $this->db->bind('id_user', $id_user);
         $this->db->bind('username', $data['username']);
         $this->db->bind('namauser', $data['namauser']);
         $this->db->bind('alias', $data['alias']);
@@ -106,5 +118,38 @@ class User
 
         return $this->db->rowCount();
     }
+
+    public function updateData($data)
+    {
+        $query = "UPDATE " . $this->table . " SET 
+                    nama_user =:namauser,
+                    role =:role,
+                    alias =:alias,
+					is_active =:status 
+					WHERE id_user =:id_user";
+
+        $this->db->query($query);
+
+        $this->db->bind('id_user', $data['id_user']);
+        $this->db->bind('namauser', $data['namauser']);
+        $this->db->bind('role', $data['role']);
+        $this->db->bind('alias', $data['alias']);
+        $this->db->bind('status', $data['status']);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+    public function deleteData ($data): int
+	{
+		$query = " DELETE FROM " . $this->table . " WHERE id_user =:id_user ";
+
+		$this->db->query($query);
+		$this->db->bind('id_user', $data['id_user']);
+		$this->db->execute();
+
+		return $this->db->rowCount();
+	}
 
 }

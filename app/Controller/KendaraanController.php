@@ -150,7 +150,25 @@ class KendaraanController extends Controller
 
     public function delete()
     {
-        
+		$respon = Security::verifyToken($_POST);
+		if($respon['type']){
+            if ($this->model('Transaksi')->checkTransKendaraan($_POST['id']) > 0) {
+                Flasher::setFlash('Tidak bisa', 'dihapus', 'danger', 'kendaraan', 'Kendaraan sudah ada transaksi.');
+                header('Location: ' . BASEURL . '/kendaraan');
+                exit;
+			} elseif( $this->model('Kendaraan')->deleteData($_POST) > 0 ){
+				header ('Location: ' . BASEURL . '/kendaraan' );
+				exit;
+			} else {
+				Flasher::setFlash('gagal', 'dihapus', 'danger', '', '');
+				header ('Location: ' . BASEURL . '/kendaraan' );
+				exit;
+			}
+		} else {
+			Flasher::setFlash($respon['message'], '', 'danger', '', '');
+			header ('Location: ' . BASEURL . '/kendaraan' );
+			exit;
+		}
     }
 
 

@@ -4,8 +4,9 @@ use Teckindo\TrackerApps\App\Router;
 use Teckindo\TrackerApps\Middleware\AuthMiddleware;
 use Teckindo\TrackerApps\Controller\{
     AuthController, LoginController, HomeController, KendaraanController,
-    ReportController, DivisiController, UserController, 
-    MenuController, OperatorController, TransaksiController, StatusController
+    ReportController, DivisiController, HistoryController, UserController, 
+    MenuController, OperatorController, RoleController, TransaksiController, 
+    StatusController
 };
 
 
@@ -56,14 +57,6 @@ Router::add('GET', '/operator/edit/([0-9a-zA-z\+_\-]*)', OperatorController::cla
 Router::add('PUT', '/operator', OperatorController::class, 'update', [AuthMiddleware::class]);
 Router::add('DELETE', '/operator', OperatorController::class, 'delete', [AuthMiddleware::class]);
 
-//Router untuk Divisi
-Router::add('GET', '/divisi', DivisiController::class, 'index', [AuthMiddleware::class]);
-Router::add('GET', '/divisi/add', DivisiController::class, 'add', [AuthMiddleware::class]);
-Router::add('POST', '/divisi', DivisiController::class, 'save', [AuthMiddleware::class]);
-Router::add('GET', '/divisi/edit/([0-9a-zA-z\+_\-]*)', DivisiController::class, 'edit', [AuthMiddleware::class]);
-Router::add('PUT', '/divisi', DivisiController::class, 'update', [AuthMiddleware::class]);
-Router::add('DELETE', '/divisi', DivisiController::class, 'delete', [AuthMiddleware::class]);
-
 //Router untuk user
 Router::add('GET', '/user', UserController::class, 'index', [AuthMiddleware::class]);
 Router::add('GET', '/user/add', UserController::class, 'add', [AuthMiddleware::class]);
@@ -80,8 +73,20 @@ Router::add('GET', '/controller/edit/([0-9a-zA-z\+_\-]*)', MenuController::class
 Router::add('PUT', '/controller', MenuController::class, 'update', [AuthMiddleware::class]);
 Router::add('DELETE', '/controller', MenuController::class, 'delete', [AuthMiddleware::class]);
 
+//Router untuk Divisi
+Router::add('GET', '/divisi', DivisiController::class, 'index', [AuthMiddleware::class]);
+Router::add('GET', '/divisi/add', DivisiController::class, 'add', [AuthMiddleware::class]);
+Router::add('POST', '/divisi', DivisiController::class, 'save', [AuthMiddleware::class]);
+Router::add('GET', '/divisi/edit/([0-9a-zA-z\+_\-]*)', DivisiController::class, 'edit', [AuthMiddleware::class]);
+Router::add('PUT', '/divisi', DivisiController::class, 'update', [AuthMiddleware::class]);
+Router::add('DELETE', '/divisi', DivisiController::class, 'delete', [AuthMiddleware::class]);
 
 //Router untuk Role
+Router::add('GET', '/role', RoleController::class, 'index', [AuthMiddleware::class]);
+Router::add('GET', '/role/akses', RoleController::class, 'akses', [AuthMiddleware::class]);
+
+//Router untuk History
+Router::add('GET', '/history', HistoryController::class, 'index', [AuthMiddleware::class]);
 
 
 

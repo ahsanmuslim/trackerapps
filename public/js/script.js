@@ -85,6 +85,36 @@ $(document).ready(function () {
 
     });
 
+
+    // Konfirmasi tombol hapus Sweetalert
+    const tombolHapus = document.querySelectorAll('.tombol-hapus-form');
+    tombolHapus.forEach(tbl => {
+        tbl.addEventListener('click', function(e) {
+            var form =  this.closest("form");
+
+            e.preventDefault();
+            Swal.fire({
+                title: 'Apakah Anda Yakin ?',
+                text: "Data yang Anda hapus tidak dapat di Recovery !",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Saya yakin !'
+            }).then((willDelete) => {
+                if (willDelete.value) {
+                    form.submit();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your data has been deleted.',
+                        'success'
+                    )
+                }
+            });
+        });
+    });
+
+
     //fungsi untuk memanggil datatable Library dengan metode Client Side PRocessing
     $('#tblreport').DataTable({
         columnDefs: [{
