@@ -151,7 +151,7 @@ class Kendaraan
         $query_data = "INSERT INTO kendaraan VALUES ";
 
         for ($i=2 ; $i <= count($all_data) ; $i++){
-            $id_mobil = $all_data [$i]['A'];
+            $id_mobil = bin2hex(random_bytes(16));
             $no_polisi = $all_data [$i]['B'];
             $no_stnk = $all_data [$i]['C'];
             $nama_stnk = $all_data [$i]['D'];

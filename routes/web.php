@@ -12,6 +12,9 @@ use Teckindo\TrackerApps\Controller\{
 //Router untuk Home
 Router::add('GET', '/', LoginController::class, 'index');
 Router::add('GET', '/home', HomeController::class, 'index', [AuthMiddleware::class]);
+Router::add('GET', '/home/scanner', HomeController::class, 'scanner', [AuthMiddleware::class]);
+Router::add('GET', '/home/([0-9a-zA-z\+_\-]*)', HomeController::class, 'scanning', [AuthMiddleware::class]);
+Router::add('POST', '/home', HomeController::class, 'scanningPost', [AuthMiddleware::class]);
 
 //Router unutk status
 Router::add('GET', '/status', StatusController::class, 'kendaraan', [AuthMiddleware::class]);

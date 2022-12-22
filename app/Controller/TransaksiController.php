@@ -79,8 +79,8 @@ class TransaksiController extends Controller
     {
         $data['mobil'] = $this->model('Kendaraan')->getMobilInfo($_POST['id_mobil']);
         $data['last'] = $this->model('Transaksi')->getLastStatus($_POST['id_mobil']);
-        $data['sopir'] = $this->model('Operator')->getSopir();
-        $data['kenek'] = $this->model('Operator')->getKenek();
+        $data['sopir'] = $this->model('Operator')->getSopirReady();
+        $data['kenek'] = $this->model('Operator')->getKenekReady();
         $data['divisi'] = $this->model('Divisi')->getDivisiAll();
         $validation = new Validation();
         $check = $validation->cekStatus($_POST['id_mobil'], "OUT");
@@ -98,8 +98,8 @@ class TransaksiController extends Controller
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['mobil'] = $this->model('Kendaraan')->getMobilInfo($id_mobil); // Scanner Android
         $data['last'] = $this->model('Transaksi')->getLastStatus($id_mobil); // Scanner Android
-        $data['sopir'] = $this->model('Operator')->getSopir();
-        $data['kenek'] = $this->model('Operator')->getKenek();
+        $data['sopir'] = $this->model('Operator')->getSopirReady();
+        $data['kenek'] = $this->model('Operator')->getKenekReady();
         $data['divisi'] = $this->model('Divisi')->getDivisiAll();
         $validation = new Validation();
         $check = $validation->cekStatus($id_mobil, "OUT");

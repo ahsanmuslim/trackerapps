@@ -34,7 +34,7 @@ class LoginController extends Controller
     public function logout() : void
     {
         //hapus JWT di DB, Hapus Cookie dan Hapus Session
-        $this->model("user")->hapusJWT();
+        $this->model("User")->hapusJWT();
         setcookie("TRACKER-APPS", "", time() - 60);
         session_destroy();
         header('Location: ' . BASEURL . '/');

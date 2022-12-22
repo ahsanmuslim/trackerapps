@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Teckindo\TrackerApps\Controller;
 
+
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
 use Teckindo\TrackerApps\App\Controller;

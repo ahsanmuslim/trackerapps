@@ -1,6 +1,6 @@
 <?php
 
-use Ramsey\Uuid\Uuid;
+use Rhumsaa\Uuid\Uuid;
 use Teckindo\TrackerApps\Services\Security;
 
 $csrftoken = Security::csrfToken();

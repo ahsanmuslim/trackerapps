@@ -3,8 +3,10 @@ var controller = "";
 
 if(scanner == "SCAN IN"){
     controller = "transaksi/scanin";
-} else {
+} else if(scanner == "SCAN OUT") {
     controller = "transaksi/scanout";
+} else {
+    controller = "home";
 }
 
 function onScanSuccess(decodedText, decodedResult) {

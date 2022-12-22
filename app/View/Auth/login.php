@@ -15,18 +15,8 @@ use Teckindo\TrackerApps\Helper\Flasher;
   <link rel="shortcut icon" href="<?= BASEURL ?>/icon/favicon-96x96.png" type="image/x-icon">
   <link href="<?= BASEURL ?>/css/sb-dark-themes.css" rel="stylesheet">
 </head>
-<!-- <body class="bg-gradient-primary"> -->
-<style type="text/css">
-/* Custom CSS  */
-body.background-image {
-  background: url(<?= BASEURL; ?>/img/background/construction.jpg);
-  background-size:cover;
-  background-attachment: fixed;
-  background-position: center;
-}
 
-</style>  
-<body class="background-image">
+<body class="bg-gray-900">
 
 <div class="container">
 
@@ -86,7 +76,7 @@ body.background-image {
   <script src="<?= BASEURL; ?>/js/bootstrap.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="<?= BASEURL; ?>/js/sb-dark-themes.min.js"></script>
+  <script src="<?= BASEURL; ?>/js/sb-dark-themes.js"></script>
 
 </body>
 

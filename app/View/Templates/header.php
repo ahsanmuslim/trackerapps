@@ -78,7 +78,7 @@
                         <i class="fas fa-bars text-dark"></i>
                     </button>
 
-                    <p class="font-weight-bold h5 text-warning"><a href="<?= BASEURL ?>" class="text-warning text-decoration-none">Tracker Apps</a></p>
+                    <p class="font-weight-bold h6 text-warning"><a href="<?= BASEURL ?>" class="text-warning text-decoration-none">Vehicle Tracker Apps</a></p>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -106,30 +106,6 @@
                                     </div>
                                 </a>              
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Notification</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-comments fa-fw" data-toggle="tooltip" title="Chat Message"></i>   
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header bg-dark border-dark">
-                                Chat Message
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-comments text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">click here to chat</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Chat</a>
                             </div>
                         </li>
 

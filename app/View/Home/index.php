@@ -41,8 +41,8 @@ use Teckindo\TrackerApps\Helper\Flasher;
 
     <div class="row">
         <div class="col-lg-12 mb-5">
-            <a href="<?= BASEURL ?>/transaksi/scanin" class="btn btn-lg btn-success btn-block mb-4 py-5" onclick="scanQR('scanin')">SCAN IN (MASUK)</a>
-            <a href="<?= BASEURL ?>/transaksi/scanout" class="btn btn-lg btn-danger btn-block mb-4 py-5" onclick="scanQR('scanout')">SCAN OUT (KELUAR)</a>
+            <a href="#" class="btn btn-lg btn-success btn-block mb-4 py-5" onclick="scanQR('scanin')" id="scan-in"><i class="fas fa-qrcode mr-3"></i>SCAN IN (MASUK)</a>
+            <a href="#" class="btn btn-lg btn-danger btn-block mb-4 py-5" onclick="scanQR('scanout')" id="scan-out"><i class="fas fa-qrcode mr-3"></i>SCAN OUT (KELUAR)</a>
         </div>
     </div>
     
@@ -55,5 +55,17 @@ use Teckindo\TrackerApps\Helper\Flasher;
 <script>
     function scanQR(status){
         Android.scanBarcode(status);
+    }
+
+    const scanin = document.getElementById('scan-in');
+    const scanout = document.getElementById('scan-out');
+
+    const link = window.location.origin + '/';
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        scanin.setAttribute('href', '#');
+        scanout.setAttribute('href', '#');
+    }else{
+        scanin.setAttribute('href', link + 'transaksi/scanin');
+        scanout.setAttribute('href', link + 'transaksi/scanout');
     }
 </script>

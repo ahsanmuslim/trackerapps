@@ -30,6 +30,18 @@ class Operator
 		$this->db->bind('jenis', "Sopir");
 		return $this->db->resultSet();
 	}
+
+	//get data Sopir Ready
+	public function getSopirReady()
+	{
+		$query = "SELECT * FROM operator WHERE jenis=:jenis AND status=:status";
+
+		$this->db->query($query);
+		$this->db->bind('jenis', "Sopir");
+		$this->db->bind('status', "IN");
+		return $this->db->resultSet();
+	}
+		
     
 	//get data Kenek
 	public function getKenek()
@@ -38,6 +50,17 @@ class Operator
 
 		$this->db->query($query);
 		$this->db->bind('jenis', "Kenek");
+		return $this->db->resultSet();
+	}
+
+	//get data Kenek Ready
+	public function getKenekReady()
+	{
+		$query = "SELECT * FROM operator WHERE jenis=:jenis AND status=:status";
+
+		$this->db->query($query);
+		$this->db->bind('jenis', "Kenek");
+		$this->db->bind('status', "IN");
 		return $this->db->resultSet();
 	}
 

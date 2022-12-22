@@ -1,14 +1,15 @@
 <?php
 namespace Teckindo\TrackerApps\Helper;
 
+
 use Firebase\JWT\JWT;
-use Ramsey\Uuid\Uuid;
+use Rhumsaa\Uuid\Uuid;
 use Teckindo\TrackerApps\App\Controller;
 use function Teckindo\TrackerApps\Config\App;
 
 class Session extends Controller
 {
-    private static string $SECRET_KEY = "qwertyuiopljhgffsazxcvb";
+    private static $SECRET_KEY = "qwertyuiopljhgffsazxcvb";
 
     public function jwtlogin(string $username, string $password): bool
     {
@@ -21,7 +22,8 @@ class Session extends Controller
             $payload = [
                 "username" => $data['username'],
                 "role" => $data['role'],
-                "id_login" => Uuid::uuid1()->toString()
+                // "id_login" => Uuid::uuid1()->toString()
+                "id_login" => bin2hex(random_bytes(16))
             ];
 
             //panggil Env Session Lifetime

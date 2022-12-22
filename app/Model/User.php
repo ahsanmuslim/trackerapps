@@ -91,15 +91,16 @@ class User
     {
         $query = "INSERT INTO " . $this->table . " 
         VALUES  
-        (NULL, :username, :namauser, :alias, :role, :password, NULL, :profile, NULL, 'default.jpg', '747278008', NULL)";
+        (NULL, :username, :namauser, :alias, :role, :password, NULL, 'default.jpg', NULL, :is_active, NULL)";
 
         $this->db->query($query);
 
         $this->db->bind('username', $data['username']);
         $this->db->bind('namauser', $data['namauser']);
+        $this->db->bind('alias', $data['alias']);
         $this->db->bind('role', $data['role']);
         $this->db->bind('password', SHA1($data['password']));
-        $this->db->bind('id_dept', $data['dept']);
+        $this->db->bind('is_active', $data['status']);
 
         $this->db->execute();
 

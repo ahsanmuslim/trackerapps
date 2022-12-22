@@ -17,7 +17,7 @@ class Database
     {
 		$koneksi = Conn();
         //data source name
-        $dsn = 'mysql:host='. $koneksi['host'] . ';dbname=' . $koneksi['name'];
+        $dsn = 'mysql:host='. $koneksi['host'] . ';port=' . $koneksi['port'] . ';dbname=' . $koneksi['name'];
 
 		//variable option untuk optimasi koneksi ke database 
 		$option = [
