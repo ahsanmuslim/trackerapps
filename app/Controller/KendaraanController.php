@@ -131,8 +131,9 @@ class KendaraanController extends Controller
 
     public function importData ()
     {
-        // var_dump($_FILES);
-        if ( $this->model('Kendaraan')->importData() > 0 ){
+        $data['userlogin'] = $this->userlogin;
+        $create_by = $data['userlogin']['id_user'];
+        if ( $this->model('Kendaraan')->importData($create_by) > 0 ){
             Flasher::setFlash('Berhasil', 'diimport', 'success', 'kendaraan', '');
             header ('Location: '. BASEURL . '/kendaraan');
             exit;

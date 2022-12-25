@@ -1,5 +1,0 @@
-File yang harus di ubah saaat upload :
-1. script.js
-2. scanner.js
-3. index.php => Home
-4. index2.php => Home

@@ -129,7 +129,7 @@ class Kendaraan
 
 
 	//Function untuk import data ke DB dari FIle Excel
-	public function importData ()
+	public function importData ($create_by)
     {
 
         $file           = basename($_FILES['file_import']['name']);
@@ -170,9 +170,10 @@ class Kendaraan
             $operasional = $all_data [$i]['Q'];
             $dept = $all_data [$i]['R'];
             $masa_pakai = $all_data [$i]['S'];
+            $km = $all_data [$i]['T'];
 
 
-            $query_data .= "('$id_mobil', '$no_polisi', '$no_stnk', '$nama_stnk', '$no_mesin', '$no_rangka',  '$type', '$merk', '$jenis', '$model', '$tahun', '$cc', '$warna', '$lokasi', '$bbm', '$masa_berlaku', '$operasional', '$dept', '$masa_pakai',  NULL, NULL, NULL),";
+            $query_data .= "('$id_mobil', '$no_polisi', '$no_stnk', '$nama_stnk', '$no_mesin', '$no_rangka',  '$type', '$merk', '$jenis', '$model', '$tahun', '$cc', '$warna', '$lokasi', '$bbm', '$masa_berlaku', '$operasional', '$dept', '$masa_pakai',  '$km', NULL, NULL, '$create_by'),";
         }
 
         $query_data = substr ($query_data, 0, -1);

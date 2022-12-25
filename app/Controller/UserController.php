@@ -38,6 +38,7 @@ class UserController extends Controller
     public function save()
     {
         $username = $_POST['username'];
+        $data['userlogin'] = $this->userlogin;
 
         $respon = Security::verifyToken($_POST);
 		if($respon['type']){
@@ -45,7 +46,7 @@ class UserController extends Controller
                 Flasher::setFlash('Gagal', 'ditambahkan', 'danger', 'user', 'username ' . $username . ' sudah ada di Database !');
                 header('Location: ' . BASEURL . '/user');
                 exit;
-            } elseif ($this->model('User')->saveData($_POST) > 0) {
+            } elseif ($this->model('User')->saveData($_POST, $data['userlogin']['id_user']) > 0) {
                 Flasher::setFlash('Berhasil', 'ditambahkan', 'success', 'user', '');
                 header('Location: ' . BASEURL . '/user');
                 exit;

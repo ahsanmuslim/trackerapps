@@ -96,13 +96,13 @@ class User
         return $this->db->numRow();
     }
 
-    public function saveData($data)
+    public function saveData($data, $create_by)
     {
         $id_user = bin2hex(random_bytes(8));
 
         $query = "INSERT INTO " . $this->table . " 
         VALUES  
-        (:id_user, :username, :namauser, :alias, :role, :password, NULL, 'default.jpg', NULL, :is_active, NULL)";
+        (:id_user, :username, :namauser, :alias, :role, :password, NULL, 'default.jpg', NULL, :is_active, NULL, :create_by)";
 
         $this->db->query($query);
 
@@ -113,6 +113,7 @@ class User
         $this->db->bind('role', $data['role']);
         $this->db->bind('password', SHA1($data['password']));
         $this->db->bind('is_active', $data['status']);
+        $this->db->bind('create_by', $create_by);
 
         $this->db->execute();
 
