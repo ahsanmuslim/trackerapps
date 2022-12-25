@@ -17,7 +17,7 @@ class OperatorController extends Controller
     {
         $data['userlogin'] = $this->userlogin;
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
-        $data['title'] = 'Tracker Apps - Report';
+        $data['title'] = 'Tracker Apps - Operator';
         $data['operator'] = $this->model('Operator')->getOperatorAll();
         $this->view('Templates/header', $data);
         $this->view('Operator/index', $data);
@@ -28,7 +28,7 @@ class OperatorController extends Controller
     {
         $data['userlogin'] = $this->userlogin;
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
-        $data['title'] = 'Tracker Apps - User';
+        $data['title'] = 'Tracker Apps - Operator';
         $data['role'] = $this->model('Role')->getRoleAll();
         $this->view('Templates/header', $data);
         $this->view('Operator/add', $data);
@@ -37,14 +37,21 @@ class OperatorController extends Controller
 
     public function save()
     {
-        if ($this->model('Operator')->saveData($_POST) > 0) {
-            Flasher::setFlash('Berhasil', 'ditambahkan', 'success', 'operator', '');
-            header('Location: ' . BASEURL . '/operator');
-            exit;
+        $respon = Security::verifyToken($_POST);
+		if($respon['type']){
+            if ($this->model('Operator')->saveData($_POST) > 0) {
+                Flasher::setFlash('Berhasil', 'ditambahkan', 'success', 'operator', '');
+                header('Location: ' . BASEURL . '/operator');
+                exit;
+            } else {
+                Flasher::setFlash('Gagal', 'ditambahkan', 'danger', 'operator', '');
+                header('Location: ' . BASEURL . '/operator');
+                exit;
+            }
         } else {
-            Flasher::setFlash('Gagal', 'ditambahkan', 'danger', 'operator', '');
-            header('Location: ' . BASEURL . '/operator');
-            exit;
+            Flasher::setFlash($respon['message'], '', 'danger', '', '');
+			header ('Location: ' . BASEURL . '/operator' );
+			exit;
         }
     }
 
@@ -53,7 +60,7 @@ class OperatorController extends Controller
         $data['userlogin'] = $this->userlogin;
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['operator'] = $this->model('Operator')->getOperatorInfo($id);
-        $data['title'] = 'Tracker Apps - User';
+        $data['title'] = 'Tracker Apps - Operator';
         $this->view('Templates/header', $data);
         $this->view('Operator/edit', $data);
         $this->view('Templates/footer');
@@ -61,14 +68,21 @@ class OperatorController extends Controller
 
     public function update()
     {
-        if ($this->model('Operator')->updateData($_POST) > 0) {
-            Flasher::setFlash('Berhasil', 'diupdate', 'success', 'operator', '');
-            header('Location: ' . BASEURL . '/operator');
-            exit;
+        $respon = Security::verifyToken($_POST);
+		if($respon['type']){
+            if ($this->model('Operator')->updateData($_POST) > 0) {
+                Flasher::setFlash('Berhasil', 'diupdate', 'success', 'operator', '');
+                header('Location: ' . BASEURL . '/operator');
+                exit;
+            } else {
+                Flasher::setFlash('Gagal', 'diupdate', 'danger', 'operator', '');
+                header('Location: ' . BASEURL . '/operator');
+                exit;
+            }
         } else {
-            Flasher::setFlash('Gagal', 'diupdate', 'danger', 'operator', '');
-            header('Location: ' . BASEURL . '/operator');
-            exit;
+            Flasher::setFlash($respon['message'], '', 'danger', '', '');
+			header ('Location: ' . BASEURL . '/operator' );
+			exit;
         }
     }
 
@@ -77,6 +91,7 @@ class OperatorController extends Controller
 		$respon = Security::verifyToken($_POST);
 		if($respon['type']){
             if( $this->model('Operator')->deleteData($_POST) > 0 ){
+                Flasher::setFlash('Berhasil', 'dihapus', 'success', 'operator', '');
 				header ('Location: ' . BASEURL . '/operator' );
 				exit;
 			} else {

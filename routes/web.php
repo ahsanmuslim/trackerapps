@@ -83,7 +83,12 @@ Router::add('DELETE', '/divisi', DivisiController::class, 'delete', [AuthMiddlew
 
 //Router untuk Role
 Router::add('GET', '/role', RoleController::class, 'index', [AuthMiddleware::class]);
-Router::add('GET', '/role/akses', RoleController::class, 'akses', [AuthMiddleware::class]);
+Router::add('POST', '/role/getEdit', RoleController::class, 'getEdit', [AuthMiddleware::class]);
+Router::add('POST', '/role', RoleController::class, 'save', [AuthMiddleware::class]);
+Router::add('PUT', '/role', RoleController::class, 'update', [AuthMiddleware::class]);
+Router::add('DELETE', '/role', RoleController::class, 'delete', [AuthMiddleware::class]);
+Router::add('GET', '/role/akses/([0-9a-zA-z\+_\-]*)', RoleController::class, 'akses', [AuthMiddleware::class]);
+Router::add('PUT', '/role/akses', RoleController::class, 'updateAkses', [AuthMiddleware::class]);
 
 //Router untuk History
 Router::add('GET', '/history', HistoryController::class, 'index', [AuthMiddleware::class]);

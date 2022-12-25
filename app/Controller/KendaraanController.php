@@ -157,6 +157,7 @@ class KendaraanController extends Controller
                 header('Location: ' . BASEURL . '/kendaraan');
                 exit;
 			} elseif( $this->model('Kendaraan')->deleteData($_POST) > 0 ){
+                Flasher::setFlash('Berhasil', 'dihapus', 'success', 'kendaraan', '');
 				header ('Location: ' . BASEURL . '/kendaraan' );
 				exit;
 			} else {

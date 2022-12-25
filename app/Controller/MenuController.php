@@ -2,6 +2,8 @@
 namespace Teckindo\TrackerApps\Controller;
 
 use Teckindo\TrackerApps\App\Controller;
+use Teckindo\TrackerApps\Helper\Flasher;
+use Teckindo\TrackerApps\Services\Security;
 
 class MenuController extends Controller
 {
@@ -15,10 +17,10 @@ class MenuController extends Controller
     {
         $data['userlogin'] = $this->userlogin;
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
-        $data['title'] = 'Tracker Apps - Report';
-        $data['report'] = $this->model('Report')->getReportAll();
+        $data['title'] = 'Tracker Apps - Menu';
+        $data['menu'] = $this->model('Menu')->getMenuAll();
         $this->view('Templates/header', $data);
-        $this->view('Report/index', $data);
+        $this->view('Menu/index', $data);
         $this->view('Templates/footer');
     }
 
@@ -26,26 +28,85 @@ class MenuController extends Controller
     {
         $data['userlogin'] = $this->userlogin;
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
-        $data['title'] = 'Tracker Apps - User';
-        $data['role'] = $this->model('Role')->getRoleAll();
+        $data['title'] = 'Tracker Apps - Menu';
         $this->view('Templates/header', $data);
-        $this->view('User/add', $data);
+        $this->view('Menu/add', $data);
         $this->view('Templates/footer');
     }
 
     public function save()
     {
+        $respon = Security::verifyToken($_POST);
+		if($respon['type']){
+            if ($this->model('Menu')->saveData($_POST) > 0) {
+                Flasher::setFlash('Berhasil', 'ditambahkan', 'success', 'menu', '');
+                header('Location: ' . BASEURL . '/controller');
+                exit;
+            } else {
+                Flasher::setFlash('Gagal', 'ditambahkan', 'danger', 'menu', '');
+                header('Location: ' . BASEURL . '/controller');
+                exit;
+            }
+        } else {
+            Flasher::setFlash($respon['message'], '', 'danger', '', '');
+			header ('Location: ' . BASEURL . '/controller' );
+			exit;
+        }
+    }
 
+    public function edit($id)
+    {
+        $data['userlogin'] = $this->userlogin;
+        $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
+        $data['controller'] = $this->model('Menu')->getMenuInfo($id);
+        $data['title'] = 'Tracker Apps - Menu';
+        $this->view('Templates/header', $data);
+        $this->view('Menu/edit', $data);
+        $this->view('Templates/footer');
     }
 
     public function update()
     {
-
+        $respon = Security::verifyToken($_POST);
+		if($respon['type']){
+            if ($this->model('Menu')->updateData($_POST) > 0) {
+                Flasher::setFlash('Berhasil', 'diupdate', 'success', 'menu', '');
+                header('Location: ' . BASEURL . '/controller');
+                exit;
+            } else {
+                Flasher::setFlash('Gagal', 'diupdate', 'danger', 'menu', '');
+                header('Location: ' . BASEURL . '/controller');
+                exit;
+            }
+        } else {
+            Flasher::setFlash($respon['message'], '', 'danger', '', '');
+			header ('Location: ' . BASEURL . '/controller' );
+			exit;
+        }
     }
-
+    
     public function delete()
     {
-        
+        $respon = Security::verifyToken($_POST);
+		if($respon['type']){
+            if ($this->model('Menu')->checkMenuAkses($_POST['id']) > 0) {
+                Flasher::setFlash('Tidak bisa', 'dihapus', 'danger', 'menu', 'Menu sudah digunakan.');
+                header('Location: ' . BASEURL . '/controller');
+                exit;
+            } elseif( $this->model('Menu')->deleteData($_POST) > 0 ){
+                Flasher::setFlash('Berhasil', 'dihapus', 'success', 'menu', '');
+				header ('Location: ' . BASEURL . '/controller' );
+				exit;
+			} else {
+				Flasher::setFlash('gagal', 'dihapus', 'danger', '', '');
+				header ('Location: ' . BASEURL . '/controller' );
+				exit;
+			}
+		} else {
+			Flasher::setFlash($respon['message'], '', 'danger', '', '');
+			header ('Location: ' . BASEURL . '/controller' );
+			exit;
+		}
     }
     
 }

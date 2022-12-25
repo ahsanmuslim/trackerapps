@@ -3,10 +3,9 @@
 
     <div class="error-box">
         <div class="error-body text-center">
-            <h1><strong>401 Unauthorized</strong></h1>
-            <h4><b>ACCESS BLOCKED !!!</b></h4>
-            <h5><small>YOU DO NOT HAVE THE AUTHORITY TO ACCESS THIS PAGE.</small></h5><br>
-            <a href="<?= BASEURL; ?>" class="btn btn-dark">Back to home</a> 
+            <h2 class="text-dark mb-2"><strong>401 Unauthorized</strong></h2>
+            <h5 class="text-warning font-weight-bold"><small>YOU DO NOT HAVE THE AUTHORITY TO ACCESS THIS PAGE.</small></h5><br>
+            <a href="<?= BASEURL; ?>" class="btn btn-dark py-2 px-5">BACK TO HOME</a> 
         </div>
     </div>
 

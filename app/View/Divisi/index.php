@@ -1,6 +1,9 @@
 <?php
 
 use Teckindo\TrackerApps\Helper\Flasher;
+use Teckindo\TrackerApps\Services\Security;
+
+$csrftoken = Security::csrfToken();
 
 ?>
 
@@ -59,7 +62,12 @@ use Teckindo\TrackerApps\Helper\Flasher;
                                 <td><?= $r['alias'] ?></td>
                                 <td class="judul">
                                     <a href="<?= BASEURL ?>/divisi/edit/<?= $r['id_divisi'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-pen"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-fw fa-trash"></i></a>
+                                    <form action="<?= BASEURL ?>/divisi" method="POST" class="d-inline">
+                                        <input type="hidden" value="DELETE" name="_method">
+                                        <input type="hidden" value="<?= $csrftoken ?>" name="csrftoken">
+                                        <input type="hidden" value="<?= $r['id_divisi']; ?>" name="id_divisi">
+                                        <button class="btn btn-sm btn-danger tombol-hapus-form"><i class="fas fa-fw fa-trash"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -45,6 +45,7 @@ use Teckindo\TrackerApps\Helper\Flasher;
     const scaninfo = document.getElementById('scan-info');
 
     const link = window.location.origin + '/';
+    // const link = window.location.origin + '/security/';
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
         scaninfo.setAttribute('href', '#');
     }else{

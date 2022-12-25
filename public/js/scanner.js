@@ -12,6 +12,7 @@ if(scanner == "SCAN IN"){
 function onScanSuccess(decodedText, decodedResult) {
 
     const url = window.location.origin + '/';
+    // const url = window.location.origin + '/security/';
     const id_mobil = decodedText;
 
     playAudio();

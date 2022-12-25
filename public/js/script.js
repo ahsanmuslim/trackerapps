@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     const url = window.location.origin + '/';
+    // const url = window.location.origin + '/security/';
 
     var print = '';
     const tglawal = $("input[name='tglawal']").val();
@@ -104,14 +105,53 @@ $(document).ready(function () {
             }).then((willDelete) => {
                 if (willDelete.value) {
                     form.submit();
-                    Swal.fire(
-                        'Deleted!',
-                        'Your data has been deleted.',
-                        'success'
-                    )
+                    // Swal.fire(
+                    //     'Berhasil!',
+                    //     'Data telah terhapus !',
+                    //     'success'
+                    // )
                 }
             });
         });
+    });
+
+    $('.modalAddRole').on('click', function () {
+
+        $('#judulModal').html('Tambah Role');
+        $('.modal-footer button[type=submit]').html('Save Data');
+        $('#request').val('POST');
+        //baris ini berfungsi untuk menghilangkan data yang ada di modal karena fungsi ajax getUbah masih tersimpan
+        $('#id').val('');
+        $('#role').val('');
+
+    });
+
+    //Function untuk modif Modal Role
+    $('.modalEditRole').on('click', function () {
+
+        $('#judulModal').html('Update Role');
+        $('.modal-footer button[type=submit]').html('Update Data');
+        $('.modal-body form').attr('action', url + 'role');
+        $('#request').val('PUT');
+
+        const id = $(this).data('id');
+
+        $.ajax({
+
+            url: url + 'role/getEdit',
+            data: {
+                id: id
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function (data) {
+                //berfungsi untuk menampilkan data json ke dalam modal tampil ubah
+                $('#id').val(data.id);
+                $('#role').val(data.role);
+            }
+
+        });
+
     });
 
 

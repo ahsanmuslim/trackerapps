@@ -15,7 +15,7 @@ class StatusController extends Controller
     public function kendaraan()
     {
         $data['userlogin'] = $this->userlogin;
-        $data['title'] = 'Tracker Apps - Report';
+        $data['title'] = 'Tracker Apps - Status';
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['kendaraan'] = $this->model('Kendaraan')->getKendaraanAll();
         $this->view('Templates/header', $data);
@@ -26,7 +26,7 @@ class StatusController extends Controller
     public function sopir()
     {
         $data['userlogin'] = $this->userlogin;
-        $data['title'] = 'Tracker Apps - Report';
+        $data['title'] = 'Tracker Apps - Status';
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['sopir'] = $this->model('Operator')->getSopir();
         $this->view('Templates/header', $data);
@@ -37,7 +37,7 @@ class StatusController extends Controller
     public function kenek()
     {
         $data['userlogin'] = $this->userlogin;
-        $data['title'] = 'Tracker Apps - Report';
+        $data['title'] = 'Tracker Apps - Status';
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['kenek'] = $this->model('Operator')->getKenek();
         $this->view('Templates/header', $data);

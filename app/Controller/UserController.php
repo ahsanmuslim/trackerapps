@@ -39,18 +39,25 @@ class UserController extends Controller
     {
         $username = $_POST['username'];
 
-        if ($this->model('User')->cekUsername($_POST) > 0) {
-            Flasher::setFlash('Gagal', 'ditambahkan', 'danger', 'user', 'username ' . $username . ' sudah ada di Database !');
-            header('Location: ' . BASEURL . '/user');
-            exit;
-        } elseif ($this->model('User')->saveData($_POST) > 0) {
-            Flasher::setFlash('Berhasil', 'ditambahkan', 'success', 'user', '');
-            header('Location: ' . BASEURL . '/user');
-            exit;
+        $respon = Security::verifyToken($_POST);
+		if($respon['type']){
+            if ($this->model('User')->cekUsername($_POST) > 0) {
+                Flasher::setFlash('Gagal', 'ditambahkan', 'danger', 'user', 'username ' . $username . ' sudah ada di Database !');
+                header('Location: ' . BASEURL . '/user');
+                exit;
+            } elseif ($this->model('User')->saveData($_POST) > 0) {
+                Flasher::setFlash('Berhasil', 'ditambahkan', 'success', 'user', '');
+                header('Location: ' . BASEURL . '/user');
+                exit;
+            } else {
+                Flasher::setFlash('Gagal', 'ditambahkan', 'danger', 'user', '');
+                header('Location: ' . BASEURL . '/user');
+                exit;
+            }
         } else {
-            Flasher::setFlash('Gagal', 'ditambahkan', 'danger', 'user', '');
-            header('Location: ' . BASEURL . '/user');
-            exit;
+            Flasher::setFlash($respon['message'], '', 'danger', '', '');
+			header ('Location: ' . BASEURL . '/user' );
+			exit;
         }
     }
 
@@ -68,14 +75,21 @@ class UserController extends Controller
 
     public function update()
     {
-        if ($this->model('User')->updateData($_POST) > 0) {
-            Flasher::setFlash('Berhasil', 'diupdate', 'success', 'user', '');
-            header('Location: ' . BASEURL . '/user');
-            exit;
+        $respon = Security::verifyToken($_POST);
+		if($respon['type']){
+            if ($this->model('User')->updateData($_POST) > 0) {
+                Flasher::setFlash('Berhasil', 'diupdate', 'success', 'user', '');
+                header('Location: ' . BASEURL . '/user');
+                exit;
+            } else {
+                Flasher::setFlash('Gagal', 'diupdate', 'danger', 'user', '');
+                header('Location: ' . BASEURL . '/user');
+                exit;
+            }
         } else {
-            Flasher::setFlash('Gagal', 'diupdate', 'danger', 'user', '');
-            header('Location: ' . BASEURL . '/user');
-            exit;
+            Flasher::setFlash($respon['message'], '', 'danger', '', '');
+			header ('Location: ' . BASEURL . '/user' );
+			exit;
         }
     }
 
@@ -88,6 +102,7 @@ class UserController extends Controller
                 header('Location: ' . BASEURL . '/user');
                 exit;
 			} elseif( $this->model('User')->deleteData($_POST) > 0 ){
+                Flasher::setFlash('Berhasil', 'dihapus', 'success', 'user', '');
 				header ('Location: ' . BASEURL . '/user' );
 				exit;
 			} else {
