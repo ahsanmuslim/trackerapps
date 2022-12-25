@@ -18,7 +18,7 @@ class MenuController extends Controller
         $data['userlogin'] = $this->userlogin;
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['title'] = 'Tracker Apps - Menu';
-        $data['menu'] = $this->model('Menu')->getMenuAll();
+        $data['allmenu'] = $this->model('Menu')->getMenuAll();
         $this->view('Templates/header', $data);
         $this->view('Menu/index', $data);
         $this->view('Templates/footer');

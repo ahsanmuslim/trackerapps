@@ -58,7 +58,7 @@ $csrftoken = Security::csrfToken();
                             <?php
                             $no = 1;
                             $text = '';
-                            foreach ($data['menu'] as $r) : 
+                            foreach ($data['allmenu'] as $r) : 
                             ?>
                                 <tr>
                                     <td class="judul"><?= $no++ ?></td>

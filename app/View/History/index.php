@@ -19,6 +19,12 @@
                             <thead class="thead-light">
                             <style>
                                 th.judul , td.judul {text-align: center;}
+                                /* //css untuk horizantal scroll */
+                                th, td { white-space: nowrap; }
+                                div.dataTables_wrapper {
+                                    width: 100%;
+                                    margin: 0 auto;
+                                }
                             </style>
                                 <tr>
                                     <th class="judul">#</th>    
