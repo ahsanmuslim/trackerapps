@@ -36,4 +36,47 @@ class Access extends Controller
         }
     }
 
+    public function getDetail($id_role)
+    {
+        $data['controller'] = $this->model('Menu')->getMenuAllActive();
+
+        $detialakses = [];
+
+        foreach ($data['controller'] as $ctr) {
+            $aksesinfo = "";
+            $aksesinfo = $this->model('Role')->getAccessInfo($id_role, $ctr['id']);
+
+            if(! empty($aksesinfo)){
+                $detialakses[] = [
+                    "title" => $ctr['title'],
+                    "url" => $ctr['url'],
+                    "role" => $aksesinfo['id_role'],
+                    "controller" => $aksesinfo['controller'],
+                    "akses" => "1",
+                    "create" => $aksesinfo['create_data'],
+                    "update" => $aksesinfo['update_data'],
+                    "delete" => $aksesinfo['delete_data'],
+                    "print" => $aksesinfo['print_data'],
+                    "import" => $aksesinfo['import_data'],
+                ];
+            } else {
+                $detialakses[] = [
+                    "title" => $ctr['title'],
+                    "url" => $ctr['url'],
+                    "role" => $id_role,
+                    "controller" => $ctr['id'],
+                    "akses" => "0",
+                    "create" => "0",
+                    "update" => "0",
+                    "delete" => "0",
+                    "print" => "0",
+                    "import" => "0",
+                ];
+            }
+
+        }
+        
+        return $detialakses;
+    }
+
 }

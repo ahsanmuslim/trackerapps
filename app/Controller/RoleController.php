@@ -2,6 +2,7 @@
 namespace Teckindo\TrackerApps\Controller;
 
 use Teckindo\TrackerApps\App\Controller;
+use Teckindo\TrackerApps\Helper\Access;
 use Teckindo\TrackerApps\Helper\Flasher;
 use Teckindo\TrackerApps\Services\Security;
 
@@ -30,44 +31,8 @@ class RoleController extends Controller
         $data['title'] = 'Tracker Apps - Role';
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['role'] = $this->model('Role')->getRoleInfo($id_role);
-        $data['controller'] = $this->model('Menu')->getMenuAllActive();
-
-        $akses = [];
-
-        foreach ($data['controller'] as $ctr) {
-            $aksesinfo = "";
-            $aksesinfo = $this->model('Role')->getAccessInfo($id_role, $ctr['id']);
-
-            if(! empty($aksesinfo)){
-                $akses[] = [
-                    "title" => $ctr['title'],
-                    "url" => $ctr['url'],
-                    "role" => $aksesinfo['id_role'],
-                    "controller" => $aksesinfo['controller'],
-                    "akses" => "1",
-                    "create" => $aksesinfo['create_data'],
-                    "update" => $aksesinfo['update_data'],
-                    "delete" => $aksesinfo['delete_data'],
-                    "print" => $aksesinfo['print_data'],
-                    "import" => $aksesinfo['import_data'],
-                ];
-            } else {
-                $akses[] = [
-                    "title" => $ctr['title'],
-                    "url" => $ctr['url'],
-                    "role" => $id_role,
-                    "controller" => $ctr['id'],
-                    "akses" => "0",
-                    "create" => "0",
-                    "update" => "0",
-                    "delete" => "0",
-                    "print" => "0",
-                    "import" => "0",
-                ];
-            }
-
-        }
-        $data['akses'] = $akses;
+        $akses = new Access();
+        $data['akses'] = $akses->getDetail($id_role);
 
         $this->view('Templates/header', $data);
         $this->view('Role/akses', $data);

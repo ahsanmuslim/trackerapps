@@ -43,6 +43,7 @@ $csrftoken = Security::csrfToken();
                                     <th class="judul">#</th>
                                     <th>Title Menu</th>
                                     <th>Controller</th>
+                                    <th class="judul">Akses</th>
                                     <th class="judul">Create</th>
                                     <th class="judul">Update</th>
                                     <th class="judul">Delete</th>
@@ -81,6 +82,8 @@ $csrftoken = Security::csrfToken();
                     </div>
                 </div>
             </form>
+
+            <div class="dropdown-divider"></div>
 
             <div class="row">
                 <div class="col-lg-12">

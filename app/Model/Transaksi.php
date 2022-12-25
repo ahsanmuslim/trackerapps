@@ -98,4 +98,16 @@ class Transaksi
 		return $this->db->resultSet();
 	}
 
+	public function getAllTransUser()
+	{
+		$query = "SELECT b.no_polisi, b.type, a.status, a.jam, d.username  
+        FROM ". $this->table . "  AS a 
+        JOIN kendaraan AS b ON a.id_mobil=b.id_mobil
+        JOIN user AS d ON a.id_user=d.id_user 
+        ORDER BY a.jam DESC LIMIT 100";
+
+		$this->db->query ($query); 
+		return $this->db->resultSet();
+	}
+
 }

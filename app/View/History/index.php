@@ -35,12 +35,12 @@
                                 foreach ($data['history'] as $r) : 
                                     if($r['status'] == 'IN'){
                                         $text = 'success';
-                                        $status = 'Available';
+                                        $status = 'Scan In';
                                     } elseif(is_null($r['status'])){
                                         $status = '';
                                     } else {
                                         $text = 'danger';
-                                        $status = 'Out';
+                                        $status = 'Scan Out';
                                     }
                                 ?>
                                     <tr>

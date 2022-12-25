@@ -10,7 +10,11 @@ class HistoryController extends Controller
         $data['userlogin'] = $this->model('User')->getUser();
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['title'] = 'Tracker Apps - History';
-        $data['history'] =  $this->model('Transaksi')->getTransUser($data['userlogin']['id_user']);
+        if($data['userlogin']['role'] == 1){
+            $data['history'] = $this->model('Transaksi')->getAllTransUser();
+        } else {
+            $data['history'] =  $this->model('Transaksi')->getTransUser($data['userlogin']['id_user']);
+        }
         $this->view('Templates/header', $data);
         $this->view('History/index', $data);
         $this->view('Templates/footer');
