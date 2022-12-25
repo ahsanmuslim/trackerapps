@@ -43,11 +43,11 @@ class Menu
     //Side menu user active
     public function getMenuActive($username)
     {
-        $query = "SELECT DISTINCT a.title, a.url, a.icon, a.is_menu, c.role FROM controller AS a 
+        $query = "SELECT DISTINCT a.title, a.url, a.icon, a.is_menu, a.is_active, c.role FROM controller AS a 
         join user_acces AS b ON a.id=b.controller 
         join role AS c ON b.role=c.id 
         join user AS d ON c.id=d.role  
-        WHERE is_menu = 1 AND username=:username ORDER BY a.id";
+        WHERE a.is_menu = 1 AND username=:username AND a.is_active = 1 ORDER BY a.id";
 
 		$this->db->query($query);
         $this->db->bind('username', $username);

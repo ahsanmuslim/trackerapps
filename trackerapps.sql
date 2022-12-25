@@ -43,23 +43,6 @@ INSERT INTO `controller` (`id`, `title`, `url`, `icon`, `is_menu`, `is_active`) 
 	(12, 'History', 'history', 'fas fa-book-open fa-fw', 1, 1),
 	(13, 'Log', 'log', 'fas fa-file-archive fa-fw', 0, 1);
 
--- Dumping structure for table jurnal_security.det_jurnal_mobil
-DROP TABLE IF EXISTS `det_jurnal_mobil`;
-CREATE TABLE IF NOT EXISTS `det_jurnal_mobil` (
-  `id_det` int(7) NOT NULL AUTO_INCREMENT,
-  `id_jurnal` varchar(20) NOT NULL,
-  `no_surat_jalan` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_det`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-
--- Dumping data for table jurnal_security.det_jurnal_mobil: ~5 rows (approximately)
-DELETE FROM `det_jurnal_mobil`;
-INSERT INTO `det_jurnal_mobil` (`id_det`, `id_jurnal`, `no_surat_jalan`) VALUES
-	(1, '617fbfed508a4', 'TD2110735W'),
-	(2, '617fbfed508a4', 'TD2110788W'),
-	(3, '617fbfed508a4', 'TD2110952W'),
-	(7, '6180e2330f907', 'SP21110006FMT'),
-	(8, '6180e2330f907', 'SP21110007FM');
 
 -- Dumping structure for table jurnal_security.divisi
 DROP TABLE IF EXISTS `divisi`;
@@ -77,78 +60,6 @@ INSERT INTO `divisi` (`id_divisi`, `nama_divisi`, `alias`) VALUES
 	(2, 'Warehouse', 'WH'),
 	(3, 'Security', 'SC'),
 	(5, 'Teknisi', 'TK');
-
--- Dumping structure for table jurnal_security.ekspedisi
-DROP TABLE IF EXISTS `ekspedisi`;
-CREATE TABLE IF NOT EXISTS `ekspedisi` (
-  `id_ekspedisi` int(3) NOT NULL AUTO_INCREMENT,
-  `nama_ekspedisi` varchar(40) NOT NULL,
-  `ket` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_ekspedisi`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
--- Dumping data for table jurnal_security.ekspedisi: ~3 rows (approximately)
-DELETE FROM `ekspedisi`;
-INSERT INTO `ekspedisi` (`id_ekspedisi`, `nama_ekspedisi`, `ket`) VALUES
-	(1, 'FDS', 'Firman Delivery Service'),
-	(2, 'J & T', 'Jet dan Tony'),
-	(3, 'JNE', 'Jalur Nugraha Ekakurir');
-
--- Dumping structure for table jurnal_security.jenis_pkt_dtg
-DROP TABLE IF EXISTS `jenis_pkt_dtg`;
-CREATE TABLE IF NOT EXISTS `jenis_pkt_dtg` (
-  `id_jenis` int(2) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(30) NOT NULL,
-  PRIMARY KEY (`id_jenis`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
--- Dumping data for table jurnal_security.jenis_pkt_dtg: ~2 rows (approximately)
-DELETE FROM `jenis_pkt_dtg`;
-INSERT INTO `jenis_pkt_dtg` (`id_jenis`, `nama`) VALUES
-	(1, 'Barang'),
-	(2, 'Dokumen Kantor');
-
--- Dumping structure for table jurnal_security.jurnal_mobil
-DROP TABLE IF EXISTS `jurnal_mobil`;
-CREATE TABLE IF NOT EXISTS `jurnal_mobil` (
-  `id_jurnal_mobil` varchar(30) NOT NULL,
-  `no_mobil` varchar(20) NOT NULL,
-  `kondisi` varchar(40) NOT NULL,
-  `bbm` varchar(10) NOT NULL,
-  `km` varchar(20) NOT NULL,
-  `foto` varchar(30) NOT NULL,
-  `foto_2` varchar(30) NOT NULL,
-  `foto_3` varchar(30) NOT NULL,
-  `no_peminjaman` varchar(30) NOT NULL,
-  `keterangan` varchar(100) NOT NULL,
-  `status` int(1) NOT NULL,
-  `time` datetime NOT NULL,
-  `id_user` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_jurnal_mobil`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dumping data for table jurnal_security.jurnal_mobil: ~5 rows (approximately)
-DELETE FROM `jurnal_mobil`;
-INSERT INTO `jurnal_mobil` (`id_jurnal_mobil`, `no_mobil`, `kondisi`, `bbm`, `km`, `foto`, `foto_2`, `foto_3`, `no_peminjaman`, `keterangan`, `status`, `time`, `id_user`) VALUES
-	('1', 'A 7597 ZM', 'Baik', '100', '1234', '', '', '', '', 'antar', 1, '2021-11-01 15:10:21', '919.0221'),
-	('617fbfed508a4', 'L 9525 VZ', 'Baik', '100', '1234', '', '', '', '', 'dsda', 1, '2021-11-01 17:22:37', '919.0221'),
-	('6180e2330f907', 'A 9478 ZM', 'Baik', '100', '1234', '', '', '', '', 'tidak ada', 1, '2021-11-02 14:01:07', '919.0221'),
-	('6180e41ac9915', 'A 7597 ZM', 'Baik', '100', '1234', '', '', '', '1121', 'fdsf', 1, '2021-11-02 14:09:14', '919.0221'),
-	('6180fb82ecd1a', 'A 7597 ZM', '', '103', '', '', '', '', '', '', 2, '2021-11-02 15:49:06', '919.0221');
-
--- Dumping structure for table jurnal_security.kat_status
-DROP TABLE IF EXISTS `kat_status`;
-CREATE TABLE IF NOT EXISTS `kat_status` (
-  `id_status` int(2) NOT NULL AUTO_INCREMENT,
-  `status` varchar(30) NOT NULL,
-  PRIMARY KEY (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
--- Dumping data for table jurnal_security.kat_status: ~2 rows (approximately)
-DELETE FROM `kat_status`;
-INSERT INTO `kat_status` (`id_status`, `status`) VALUES
-	(1, 'Paket sudah diterima'),
-	(2, 'Paket Datang (Pos Security)');
 
 -- Dumping structure for table jurnal_security.kendaraan
 DROP TABLE IF EXISTS `kendaraan`;
@@ -220,33 +131,6 @@ INSERT INTO `operator` (`id`, `nama`, `jenis`, `keterangan`, `is_active`, `statu
 	('3e8db5e4949c8066', 'Sofian', 'Sopir', 'Karyawan', 1, NULL, NULL),
 	('b85f1eeda17813e2', 'Mustofa', 'Kenek', 'Karyawan', 1, 'OUT', '2022-12-23 23:17:01');
 
--- Dumping structure for table jurnal_security.paket_datang
-DROP TABLE IF EXISTS `paket_datang`;
-CREATE TABLE IF NOT EXISTS `paket_datang` (
-  `id_paket` varchar(20) NOT NULL,
-  `asal` varchar(50) NOT NULL,
-  `ekspedisi` varchar(30) NOT NULL,
-  `kurir` varchar(30) NOT NULL,
-  `keterangan` varchar(50) NOT NULL,
-  `penerima` varchar(50) NOT NULL,
-  `ttd` varchar(30) NOT NULL,
-  `waktu_tiba` datetime NOT NULL,
-  `time_ambil` datetime NOT NULL,
-  `petugas` varchar(50) NOT NULL,
-  `jumlah` int(5) NOT NULL,
-  `status` int(2) NOT NULL,
-  `jenis_paket` int(2) NOT NULL,
-  `foto_ttd` text NOT NULL,
-  `gambar` text NOT NULL,
-  PRIMARY KEY (`id_paket`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dumping data for table jurnal_security.paket_datang: ~2 rows (approximately)
-DELETE FROM `paket_datang`;
-INSERT INTO `paket_datang` (`id_paket`, `asal`, `ekspedisi`, `kurir`, `keterangan`, `penerima`, `ttd`, `waktu_tiba`, `time_ambil`, `petugas`, `jumlah`, `status`, `jenis_paket`, `foto_ttd`, `gambar`) VALUES
-	('6189e941895f5', 'shoppee', '2', 'asman', '5353', 'Sarifah', '', '2021-11-09 10:21:36', '0000-00-00 00:00:00', '919.0221', 2, 2, 2, '.png', '.jpeg'),
-	('6189e99d94074', 'shoppee', '1', 'asman', 'dgssg', 'Sarifah', '', '2021-11-09 10:23:08', '0000-00-00 00:00:00', '919.0221', 2, 2, 1, '6189e99d94074ttd.jpeg', '6189e99d94074gambar.png');
-
 -- Dumping structure for table jurnal_security.role
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
@@ -262,39 +146,6 @@ INSERT INTO `role` (`id`, `role`) VALUES
 	(2, 'user'),
 	(3, 'adminga'),
 	(4, 'direktur');
-
--- Dumping structure for table jurnal_security.tamu
-DROP TABLE IF EXISTS `tamu`;
-CREATE TABLE IF NOT EXISTS `tamu` (
-  `id_tamu` int(7) NOT NULL AUTO_INCREMENT,
-  `nik` varchar(20) NOT NULL,
-  `nama` varchar(50) NOT NULL,
-  `asal` varchar(50) NOT NULL,
-  `tujuan` varchar(50) NOT NULL,
-  `keperluan` varchar(50) NOT NULL,
-  `waktu_datang` datetime NOT NULL,
-  `waktu_pulang` datetime NOT NULL,
-  PRIMARY KEY (`id_tamu`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
-
--- Dumping data for table jurnal_security.tamu: ~11 rows (approximately)
-DELETE FROM `tamu`;
-INSERT INTO `tamu` (`id_tamu`, `nik`, `nama`, `asal`, `tujuan`, `keperluan`, `waktu_datang`, `waktu_pulang`) VALUES
-	(1, '12', 'daniel', 'le', 'Pak Leo', 'lihat barang\r\n', '2021-10-27 17:13:47', '2021-10-28 09:35:00'),
-	(2, '2147480000', 'sa', 'JTI', 'Pak Leo', 'Webinar', '2021-10-26 13:55:23', '2021-10-26 14:38:38'),
-	(6, '17984', 'mudaim', 'gading rejo', 'pak ahmad', 'test sistem', '2021-11-04 14:22:58', '2000-11-04 11:48:46'),
-	(7, '1.80803e16', 'Sarifah Mudaim', 'Lampung', 'IT dev', 'testing sistem', '2021-11-04 11:50:40', '2021-11-04 15:48:14'),
-	(10, '1.80803e16', 'Sarifah Mudaim', 'Lampung', 'IT dev', 'testing sistem', '2021-11-04 15:56:48', '2021-11-04 16:26:08'),
-	(11, '18080300000000', 'Sarifah Mudaim', 'Lampung', 'IT dev', 'testing sistem', '2021-11-04 15:56:48', '2021-11-04 16:01:40'),
-	(12, '18080345089890003', 'Sarifah Mudaim', 'Lampung', 'IT dev', 'testing sistem', '2021-11-04 16:24:48', '2021-11-04 16:27:21'),
-	(13, '18080345089890003', 'Sarifah Mudaim', 'Lampung', 'IT dev', 'testing sistem', '2021-11-04 16:24:48', '2021-11-04 16:27:50'),
-	(14, '18080345089890003', 'Sarifah Mudaim', 'Lampung', 'IT dev', 'testing sistem', '2021-11-04 16:24:48', '2021-11-04 16:28:41'),
-	(15, '18080345089890003', 'Sarifah Mudaim', 'Lampung', 'IT dev', 'testing sistem', '2021-11-04 16:24:48', '2021-11-08 11:08:19'),
-	(16, '111122223333', 'maikel', 'Balaraja', 'Arief', 'Program', '2021-11-05 13:41:29', '2021-11-05 13:46:35'),
-	(17, '11115555999', 'Kusyanti', 'Jakarta', 'Maikel', 'Regist Email', '2021-11-05 13:44:01', '2021-11-05 13:46:20'),
-	(18, '22223333444', 'ipeh', 'Lampung', 'Kusyanto', 'service', '2021-11-05 13:48:29', '2021-11-05 13:50:49'),
-	(19, '18080345089890003', 'Sarifah Mudaim', 'Lampung', 'IT dev', 'testing sistem', '2021-11-08 11:48:55', '2021-11-08 11:49:26'),
-	(20, '17984', 'mudaim', 'gading rejo', 'pak ahmad', 'test sistem', '2022-01-12 15:03:28', '0000-00-00 00:00:00');
 
 -- Dumping structure for table jurnal_security.transaksi
 DROP TABLE IF EXISTS `transaksi`;
@@ -352,25 +203,6 @@ INSERT INTO `user` (`id_user`, `username`, `nama_user`, `alias`, `role`, `passwo
 	('e295f90a775c7241', 'susanto', 'Susanto', 'SAN', 1, '464b60f36fd2c847e559f5365fa1f2caab67167f', '2022-12-25 05:39:58.976962', 'default.jpg', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InN1c2FudG8iLCJyb2xlIjoiMSIsImlkX2xvZ2luIjoiODRiN2I1ZmVjOWY0OWQ2NDYwYjg0YTQ1OTczOTU3NGEifQ.S3nWOUljA8c6N5Wq_0LrKMp00NBfcddXG7uQxLbCSsw', 1, NULL),
 	('ec26ab0ccb1c27a4', 'indra', 'Indra', 'IND', 4, '464b60f36fd2c847e559f5365fa1f2caab67167f', '2022-12-23 07:19:15.902788', 'default.jpg', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImluZHJhIiwicm9sZSI6IjQiLCJpZF9sb2dpbiI6ImM0OTg3NTY2NTliYmMxNjYxYzQ1NTlkMzNhZTZhOWU4In0.Hr89gC7Pn6EmArLmUZK5iDtz_wypVbhHm7eZUHCHDMY', 1, NULL);
 
--- Dumping structure for table jurnal_security.users
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id_user` varchar(9) NOT NULL,
-  `nama` varchar(50) NOT NULL,
-  `username` varchar(30) NOT NULL,
-  `password` varchar(40) NOT NULL,
-  `level` varchar(5) NOT NULL,
-  PRIMARY KEY (`id_user`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dumping data for table jurnal_security.users: ~4 rows (approximately)
-DELETE FROM `users`;
-INSERT INTO `users` (`id_user`, `nama`, `username`, `password`, `level`) VALUES
-	('10', 'Indra Kurniawan', 'indra', 'd8432121af30d0969480958e402ab593', '1'),
-	('572.1113', 'Emi Mulyawati', 'emi', 'd8432121af30d0969480958e402ab593', '4'),
-	('597.0114', 'Ardi Kukuh Setyo Purnama', 'ardi', 'd8432121af30d0969480958e402ab593', '3'),
-	('919.0221', 'Sarifah Mudaim', 'ipeh', 'd8432121af30d0969480958e402ab593', '2');
 
 -- Dumping structure for table jurnal_security.user_acces
 DROP TABLE IF EXISTS `user_acces`;

@@ -30,7 +30,7 @@ class Role
 
     public function checkRole($role)
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE role =:role";
+        $query = "SELECT count(id) FROM " . $this->table . " WHERE role =:role";
         $this->db->query($query); 
 		$this->db->bind ( 'role', $role );
 
@@ -39,7 +39,7 @@ class Role
 
     public function checkRoleAkses($id)
     {
-        $query = "SELECT count(id) FROM user_acces WHERE role=:id";
+        $query = "SELECT count(role) FROM user WHERE role=:id";
         $this->db->query($query); 
 		$this->db->bind ( 'id', $id );
 
@@ -70,9 +70,15 @@ class Role
     }
 
     public function deleteData ($data): int
-	{
-		$query = " DELETE FROM " . $this->table . " WHERE id =:id ";
+	{   
+        //Hapus di user_acces
+        $query = " DELETE FROM user_acces WHERE role =:id ";
+		$this->db->query($query);
+		$this->db->bind('id', $data['id']);
+		$this->db->execute();
 
+        //Hapus di tabel role
+		$query = " DELETE FROM " . $this->table . " WHERE id =:id ";
 		$this->db->query($query);
 		$this->db->bind('id', $data['id']);
 		$this->db->execute();

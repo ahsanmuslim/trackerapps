@@ -92,7 +92,7 @@ class RoleController extends Controller
     {
         $respon = Security::verifyToken($_POST);
 		if($respon['type']){
-            if ($this->model('role')->checkRoleAkses($_POST['id']) > 0) {
+            if ($this->model('Role')->checkRoleAkses($_POST['id']) > 0) {
                 Flasher::setFlash('Tidak bisa', 'dihapus', 'danger', 'role', 'role sudah digunakan.');
                 header('Location: ' . BASEURL . '/role');
                 exit;
