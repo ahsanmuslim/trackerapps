@@ -27,6 +27,15 @@ class Access extends Controller
 
     }
 
+    public function UserCheckActive($username) : bool 
+    {
+        if($this->model('User')->checkUserActive($username) > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function MenuAccessCheck($controller, $role): bool 
     {
         if($this->model('Role')->countAccess($role, $controller) > 0){

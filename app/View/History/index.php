@@ -4,7 +4,7 @@
     <h1 class="h4 mb-3 text-gray-800">History Transaksi (Scanning)</h1>
     
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
 
             <div class="card mb-2">
                 <div class="card-header d-flex flex-row align-items-center justify-content-between">

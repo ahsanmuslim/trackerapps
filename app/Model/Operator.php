@@ -106,7 +106,7 @@ class Operator
 
         $query = "INSERT INTO " . $this->table . " 
         VALUES  
-        (:id, :nama, :jenis, :ket, :is_active, NULL, NULL)";
+        (:id, :nama, :jenis, :ket, :is_active, :status, NULL)";
 
         $this->db->query($query);
 
@@ -115,6 +115,7 @@ class Operator
         $this->db->bind('jenis', $data['jenis']);
         $this->db->bind('ket', $data['ket']);
         $this->db->bind('is_active', $data['status']);
+        $this->db->bind('status', 'IN');
 
         $this->db->execute();
 

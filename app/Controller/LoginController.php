@@ -2,6 +2,7 @@
 namespace Teckindo\TrackerApps\Controller;
 
 use Teckindo\TrackerApps\App\Controller;
+use Teckindo\TrackerApps\Helper\Access;
 use Teckindo\TrackerApps\Helper\Flasher;
 use Teckindo\TrackerApps\Helper\Session;
 
@@ -19,11 +20,15 @@ class LoginController extends Controller
 
     public function login() : void
     {
-        $email = $_POST['username'];
+        $username = $_POST['username'];
         $password = sha1($_POST['password']);
-
+        
         $session = new Session();
-        if($session->jwtlogin($email, $password)){
+        $akses = new Access();
+        if(! $akses->UserCheckActive($username)){
+            Flasher::setFlash('Login Gagal !!', 'User tidak Aktif', 'danger', '', '');
+            header('Location: ' . BASEURL . '/');
+        } elseif($session->jwtlogin($username, $password)) {
             header('Location: ' . BASEURL . '/home');
         } else {
             Flasher::setFlash('Login Gagal !!', 'Username / password Anda salah', 'danger', '', '');

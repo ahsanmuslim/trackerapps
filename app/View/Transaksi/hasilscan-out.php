@@ -55,7 +55,7 @@ if($data['last'] != false){
                     <?php } ?>
                 </select>
                 <label for="kenek">Kenek</label>
-                <select name="kenek" id="kenek" class="form-control mb-3" required>
+                <select name="kenek" id="kenek" class="form-control mb-3">
                             <option value=""></option>
                     <?php
                         foreach ($data['kenek'] as $kenek) { ?>

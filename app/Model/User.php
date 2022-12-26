@@ -38,9 +38,17 @@ class User
         return $this->db->single();
     }
 
+    public function checkUserActive($username)
+    {
+        $query = "SELECT count(id_user) FROM " . $this->table . " WHERE username =:username AND is_active=1";
+        $this->db->query($query);
+        $this->db->bind('username',$username);
+        return $this->db->numRow();
+    }
+
     public function cekUserLogin(string $username, string $password)
     {
-        $cekdata = "SELECT * FROM ".$this->table." WHERE username =:username AND password =:password ";
+        $cekdata = "SELECT * FROM ".$this->table." WHERE username =:username AND password =:password AND is_active=1";
         $this->db->query($cekdata);
 
         $this->db->bind('username',$username);
@@ -102,7 +110,7 @@ class User
 
         $query = "INSERT INTO " . $this->table . " 
         VALUES  
-        (:id_user, :username, :namauser, :alias, :role, :password, NULL, 'default.jpg', NULL, :is_active, NULL, :create_by)";
+        (:id_user, :username, :namauser, :alias, :role, :password, NOW(), 'default.jpg', NULL, :is_active, NULL, :create_by)";
 
         $this->db->query($query);
 

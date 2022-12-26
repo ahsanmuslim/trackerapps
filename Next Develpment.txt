@@ -1,0 +1,10 @@
+- Fitur Chat
+- Fitur Notif
+- Fitur Login Info >> Mac Address >> IP Address dll
+- Fitur Profile > Ganti Password
+- Fitur User Tidak Aktif >> Tidak bisa Login
+- Fitur Log ACtivity 
+- Fitur last activity login
+- Fitur WA Blast / Telegram >> Cron Job
+- Fitur Email Notification >> Cron Job
+- Export All Data Kendaraan

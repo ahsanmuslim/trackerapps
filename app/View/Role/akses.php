@@ -29,6 +29,12 @@ $csrftoken = Security::csrfToken();
                 td.judul {
                     text-align: center;
                 }
+                /* //css untuk horizantal scroll */
+                th, td { white-space: nowrap; }
+                div.dataTables_wrapper {
+                    width: 100%;
+                    margin: 0 auto;
+                }
             </style>
             <form name="form_akses" method="post">
                 <input type="hidden" value="PUT" name="_method" id="request">
@@ -37,48 +43,50 @@ $csrftoken = Security::csrfToken();
                 <input type="hidden" name="role" value="<?= $data['role']['role']; ?>" class="form-control">
                 <div class="row">
                     <div class="col-lg-12">
-                        <table class="table table-hover" id="tblrole">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th class="judul">#</th>
-                                    <th>Title Menu</th>
-                                    <th>Controller</th>
-                                    <th class="judul">Akses</th>
-                                    <th class="judul">Create</th>
-                                    <th class="judul">Update</th>
-                                    <th class="judul">Delete</th>
-                                    <th class="judul">Print</th>
-                                    <th class="judul">Import</th>
-                                </tr>
-                            </thead>
-                            <?php $no = 1;
-                            foreach ($data['akses'] as $akses) : ?>
-                                <tr>
-                                    <td class="judul"><?= $no++; ?></td>
-                                    <td><?= $akses['title']; ?></td>
-                                    <td><?= $akses['url']; ?></td>
-                                    <td class="judul">
-                                        <input type="checkbox" name="akseslist[]" value="<?= $akses['controller'] ?>" class="akseslist" <?= ($akses['akses'] == 1) ? 'checked' : '' ?>>
-                                    </td>
-                                    <td class="judul">
-                                        <input type="checkbox" name="createlist[]" value="<?= $akses['controller'] ?>" class="createlist" <?= ($akses['create'] == 1) ? 'checked' : '' ?>>
-                                    </td>
-                                    <td class="judul">
-                                        <input type="checkbox" name="updatelist[]" value="<?= $akses['controller'] ?>" class="updatelist" <?= ($akses['update'] == 1) ? 'checked' : '' ?>>
-                                    </td>
-                                    <td class="judul">
-                                        <input type="checkbox" name="deletelist[]" value="<?= $akses['controller'] ?>" class="deletelist" <?= ($akses['delete'] == 1) ? 'checked' : '' ?>>
-                                    </td>
-                                    <td class="judul">
-                                        <input type="checkbox" name="printlist[]" value="<?= $akses['controller'] ?>" class="printlist" <?= ($akses['print'] == 1) ? 'checked' : '' ?>>
-                                    </td>
-                                    <td class="judul">
-                                        <input type="checkbox" name="importlist[]" value="<?= $akses['controller'] ?>" class="importlist" <?= ($akses['import'] == 1) ? 'checked' : '' ?>>
-                                    </td>
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="tblrole">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="judul">#</th>
+                                        <th>Title Menu</th>
+                                        <th>Controller</th>
+                                        <th class="judul">Akses</th>
+                                        <th class="judul">Create</th>
+                                        <th class="judul">Update</th>
+                                        <th class="judul">Delete</th>
+                                        <th class="judul">Print</th>
+                                        <th class="judul">Import</th>
+                                    </tr>
+                                </thead>
+                                <?php $no = 1;
+                                foreach ($data['akses'] as $akses) : ?>
+                                    <tr>
+                                        <td class="judul"><?= $no++; ?></td>
+                                        <td><?= $akses['title']; ?></td>
+                                        <td><?= $akses['url']; ?></td>
+                                        <td class="judul">
+                                            <input type="checkbox" name="akseslist[]" value="<?= $akses['controller'] ?>" class="akseslist" <?= ($akses['akses'] == 1) ? 'checked' : '' ?>>
+                                        </td>
+                                        <td class="judul">
+                                            <input type="checkbox" name="createlist[]" value="<?= $akses['controller'] ?>" class="createlist" <?= ($akses['create'] == 1) ? 'checked' : '' ?>>
+                                        </td>
+                                        <td class="judul">
+                                            <input type="checkbox" name="updatelist[]" value="<?= $akses['controller'] ?>" class="updatelist" <?= ($akses['update'] == 1) ? 'checked' : '' ?>>
+                                        </td>
+                                        <td class="judul">
+                                            <input type="checkbox" name="deletelist[]" value="<?= $akses['controller'] ?>" class="deletelist" <?= ($akses['delete'] == 1) ? 'checked' : '' ?>>
+                                        </td>
+                                        <td class="judul">
+                                            <input type="checkbox" name="printlist[]" value="<?= $akses['controller'] ?>" class="printlist" <?= ($akses['print'] == 1) ? 'checked' : '' ?>>
+                                        </td>
+                                        <td class="judul">
+                                            <input type="checkbox" name="importlist[]" value="<?= $akses['controller'] ?>" class="importlist" <?= ($akses['import'] == 1) ? 'checked' : '' ?>>
+                                        </td>
 
-                                </tr>
-                            <?php endforeach; ?>
-                        </table>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </form>
