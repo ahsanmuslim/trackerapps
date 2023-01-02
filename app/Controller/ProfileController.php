@@ -106,6 +106,11 @@ class ProfileController extends Controller
         }
     }
 
+    public function getLocation()
+    {
+        $this->view('Profile/index');
+    }
+
     
     public function macaddress():void
     {

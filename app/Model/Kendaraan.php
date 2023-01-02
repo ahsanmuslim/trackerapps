@@ -183,8 +183,6 @@ class Kendaraan
 
         return $this->db->rowCount();
         unlink($target_file);
-
-
     }
 
 

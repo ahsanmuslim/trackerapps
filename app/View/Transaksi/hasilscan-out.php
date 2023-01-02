@@ -47,11 +47,11 @@ if($data['last'] != false){
                     <?php } ?>
                 </select>
                 <label for="sopir">Sopir</label>
-                <select name="sopir" id="sopir" class="form-control mb-3" required>
+                <select name="sopir" id="sopir" onchange="getSuratJalan()" class="form-control mb-3" required>
                             <option value=""></option>
                     <?php
                         foreach ($data['sopir'] as $sopir) { ?>
-                            <option value="<?= $sopir['nama'] ?>"><?= $sopir['nama'] ?></option>
+                            <option value="<?= $sopir['id'] ?>"><?= $sopir['nama'] ?></option>
                     <?php } ?>
                 </select>
                 <label for="kenek">Kenek</label>
@@ -62,6 +62,7 @@ if($data['last'] != false){
                             <option value="<?= $kenek['nama'] ?>"><?= $kenek['nama'] ?></option>
                     <?php } ?>
                 </select>
+                <div id="suratjalan"></div>         
                 <label for="keterangan">Keterangan</label>
                 <textarea class="form-control mb-3" id="keterangan" name="keterangan"></textarea>
                 <label for="status">Status</label>
@@ -109,6 +110,23 @@ function validasi()
         btnsimpan.disabled = false;
     }
 
+}
+
+function getSuratJalan()
+{
+    const url = window.location.origin + '/';
+    const id = $('#sopir').val();
+    console.log(id);
+
+    $.ajax({
+        url: url + 'api/suratjalan',
+        data: {id : id},
+        method: 'post',
+        success: function(data) {
+            $('#suratjalan').html(data);
+        }
+
+    });
 }
 
 

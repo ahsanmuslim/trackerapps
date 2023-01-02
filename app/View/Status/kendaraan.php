@@ -11,7 +11,7 @@ use Teckindo\TrackerApps\Helper\Flasher;
     <!-- Page Heading -->
     <h1 class="h3 mb-3 text-gray-800">Status Kendaraan</h1>
 
-    <div class="card text-center shadow">
+    <div class="card text-center">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs"> 	
                 <li class="nav-item">

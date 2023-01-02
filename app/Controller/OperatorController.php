@@ -105,5 +105,35 @@ class OperatorController extends Controller
 			exit;
 		}
     }
+
+    public function import ()
+    {
+        $data['userlogin'] = $this->userlogin;
+        $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
+        $data['title'] = 'Tracker Apps - Operator';
+        $this->view('Templates/header', $data);
+        $this->view('Operator/import', $data);
+        $this->view('Templates/footer');
+    }
+
+    public function importData ()
+    {
+        $data['userlogin'] = $this->userlogin;
+        $create_by = $data['userlogin']['id_user'];
+        if ( $this->model('Operator')->importData($create_by) > 0 ){
+            Flasher::setFlash('Berhasil', 'diimport', 'success', 'operator', '');
+            header ('Location: '. BASEURL . '/operator');
+            exit;
+        } else {
+            Flasher::setFlash('Gagal', 'diimport', 'danger','operator', '');
+            header ('Location: '. BASEURL . '/operator');
+            exit;
+        }
+    }
+
+    public function download ()
+    {
+        header('Location: ' . BASEURL . '/file/sample/operator.xlsx');
+    }
     
 }

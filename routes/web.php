@@ -3,10 +3,10 @@
 use Teckindo\TrackerApps\App\Router;
 use Teckindo\TrackerApps\Middleware\AuthMiddleware;
 use Teckindo\TrackerApps\Controller\{
+    ApiController, StatusController,
     AuthController, LoginController, HomeController, KendaraanController,
     ReportController, DivisiController, HistoryController, UserController, 
-    MenuController, OperatorController, RoleController, TransaksiController, 
-    StatusController
+    MenuController, OperatorController, ProfileController, RoleController, TransaksiController
 };
 
 
@@ -56,6 +56,9 @@ Router::add('POST', '/operator', OperatorController::class, 'save', [AuthMiddlew
 Router::add('GET', '/operator/edit/([0-9a-zA-z\+_\-]*)', OperatorController::class, 'edit', [AuthMiddleware::class]);
 Router::add('PUT', '/operator', OperatorController::class, 'update', [AuthMiddleware::class]);
 Router::add('DELETE', '/operator', OperatorController::class, 'delete', [AuthMiddleware::class]);
+Router::add('GET', '/operator/download', OperatorController::class, 'download', [AuthMiddleware::class]);
+Router::add('GET', '/operator/import', OperatorController::class, 'import', [AuthMiddleware::class]);
+Router::add('POST', '/operator/import', OperatorController::class, 'importData', [AuthMiddleware::class]);
 
 //Router untuk user
 Router::add('GET', '/user', UserController::class, 'index', [AuthMiddleware::class]);
@@ -92,6 +95,18 @@ Router::add('PUT', '/role/akses', RoleController::class, 'updateAkses', [AuthMid
 
 //Router untuk History
 Router::add('GET', '/history', HistoryController::class, 'index', [AuthMiddleware::class]);
+
+//Router unutk Profile
+Router::add('GET', '/profile', ProfileController::class, 'getLocation', [AuthMiddleware::class]);
+
+//Testing API Firman Indonesia
+Router::add('GET', '/api/kendaraan', ApiController::class, 'getKendaraan', [AuthMiddleware::class]);
+Router::add('GET', '/api/driver', ApiController::class, 'getDriver', [AuthMiddleware::class]);
+Router::add('GET', '/api/codriver', ApiController::class, 'getCodriver', [AuthMiddleware::class]);
+Router::add('GET', '/api/perjalanandriver', ApiController::class, 'getPerjalanan', [AuthMiddleware::class]);
+Router::add('POST', '/api/perjalanandriver', ApiController::class, 'getPerjalananDetail', [AuthMiddleware::class]);
+Router::add('GET', '/api/barangkeluar', ApiController::class, 'getBarangKeluar', [AuthMiddleware::class]);
+Router::add('POST', '/api/suratjalan', ApiController::class, 'getSuratJalan', [AuthMiddleware::class]);
 
 
 

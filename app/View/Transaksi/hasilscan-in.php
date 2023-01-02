@@ -56,7 +56,7 @@ if($data['last'] != false){
                             <option value=""></option>
                     <?php
                         foreach ($data['sopir'] as $sopir) { ?>
-                            <option value="<?= $sopir['nama'] ?>" <?php if($sopir['nama'] == $lastsopir) {echo 'selected';} ?>><?= $sopir['nama'] ?></option>
+                            <option value="<?= $sopir['id'] ?>" <?php if($sopir['id'] == $lastsopir) {echo 'selected';} ?>><?= $sopir['nama'] ?></option>
                     <?php } ?>
                 </select>
                 <label for="kenek">Kenek</label>

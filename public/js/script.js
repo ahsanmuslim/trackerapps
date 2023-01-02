@@ -3,16 +3,6 @@ $(document).ready(function () {
     const url = window.location.origin + '/';
     // const url = window.location.origin + '/security/';
 
-    var print = '';
-    const tglawal = $("input[name='tglawal']").val();
-    const tglakhir = $("input[name='tglakhir']").val();
-
-    if(tglakhir == ""){
-        print = 'All';
-    } else {
-        print = "Periode " + moment(tglawal).format('D-MMM-YY') + " s/d " + moment(tglakhir).format('D-MMM-YY');
-    }
-
     //function modal Generate QR Code
     $('.qrcodeModal').on('click',function(){
 
@@ -54,6 +44,25 @@ $(document).ready(function () {
             success: function(data) {
                 $('#qr-modal-content').html(data);
                 $('#qr-modal-footer').append('<button class="btn btn-dark tombolClose" type="button" data-dismiss="modal">Close</button>');
+            }
+    
+        });
+
+    });
+
+    //function modal Tampil Detail Perjalanan
+    $('.detailPerjalanan').on('click',function(){
+
+        const id = $(this).data('id');
+        
+        $.ajax({
+            
+            url: url + 'api/perjalanandriver',
+            data: {id : id},
+            method: 'post',
+            success: function(data) {
+                console.log('Berhasil');
+                $('#modal-content').html(data);
             }
     
         });
@@ -154,6 +163,16 @@ $(document).ready(function () {
 
     });
 
+    //Header PRint Data 
+    var print = '';
+    const tglawal = $("input[name='tglawal']").val();
+    const tglakhir = $("input[name='tglakhir']").val();
+
+    if(tglakhir == ""){
+        print = 'All';
+    } else {
+        print = "Periode " + moment(tglawal).format('D-MMM-YY') + " s/d " + moment(tglakhir).format('D-MMM-YY');
+    }
 
     //fungsi untuk memanggil datatable Library dengan metode Client Side PRocessing
     $('#tblreport').DataTable({
@@ -204,6 +223,38 @@ $(document).ready(function () {
                 orientation: 'landscape',
                 pageSize: 'A4',
                 title: 'Data Kendaraan operasional',
+                download: 'open'
+            },
+            'excel', 'print', 'copy'
+        ]
+
+    });
+
+    //Fungsi unutk menghitung kolom pada Table
+    $.fn.columnCount = function() {
+        return $('th', $(this).find('thead')).length;
+    };
+
+    //fungsi untuk memanggil datatable Library dengan metode Client Side PRocessing
+    $('#tblapifirman').DataTable({
+        columnDefs: [{
+            "searchable": false,
+            "orderable": false
+        }],
+        "order": [0, "asc"],
+
+        "lengthMenu": [50, 75, 100],
+
+        dom: 'Bfrtip',
+        dom: 
+            "<'row mb-2'<'col-lg-6'B><'col-lg-6'f>>" +
+            "<'row'<'col-lg-12'tr>>" +
+            "<'row mb-3 mt-t'<'col-lg-6'i><'col-lg-6'p>>",
+        buttons: [{
+                extend: 'pdf',
+                orientation: 'landscape',
+                pageSize: 'A4',
+                title: 'Data API Firman Indonesia',
                 download: 'open'
             },
             'excel', 'print', 'copy'
