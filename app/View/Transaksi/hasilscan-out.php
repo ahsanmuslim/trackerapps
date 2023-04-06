@@ -31,10 +31,10 @@ if($data['last'] != false){
                 <input type="date" name="tanggal" id="tanggal" value="<?=date('Y-m-d')?>" class="form-control mb-3" readonly>
                 <label for="jam">Jam Keluar</label>
                 <input type="datetime" name="jam" id="jam" value="<?= date("Y-m-d H:i:s") ?>" class="form-control mb-3" readonly>
-                <label for="lastkm">Odometer Terakhir</label>
+                <label for="lastkm">Kilometer Terakhir</label>
                 <input type="number" name="lastkm" id="lastkm" class="form-control mb-3" value="<?= $last ?>" readonly>
-                <label for="km">Odometer</label>
-                <input type="number" name="km" id="km" class="form-control mb-3" onkeyup="validasi()" value="<?= $last ?>" required>
+                <label for="km">Kilometer Awal</label>
+                <input type="number" name="km" id="km" step="any" class="form-control mb-3" onkeyup="validasi()" value="<?= $last ?>" required>
                 <div class="invalid-feedback mb-2">
                     Data tidak valid
                 </div>
@@ -47,7 +47,7 @@ if($data['last'] != false){
                     <?php } ?>
                 </select>
                 <label for="sopir">Sopir</label>
-                <select name="sopir" id="sopir" onchange="getSuratJalan()" class="form-control mb-3" required>
+                <select name="sopir" id="sopir" onchange="getPerjalananSupir()" class="form-control mb-3" required>
                             <option value=""></option>
                     <?php
                         foreach ($data['sopir'] as $sopir) { ?>
@@ -62,7 +62,18 @@ if($data['last'] != false){
                             <option value="<?= $kenek['nama'] ?>"><?= $kenek['nama'] ?></option>
                     <?php } ?>
                 </select>
-                <div id="suratjalan"></div>         
+
+                <label for="perjalanan">Data perjalanan supir</label>
+                <div class="form-group row">
+                    <div class="col-md-10">
+                        <select name="perjalanan" id="perjalanan" class="form-control mb-3" onchange="popupDetailPerjalanan()">
+                                
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-dark btn-block detailSuratJalan" data-toggle="modal" data-target="#suratJalanModal">Lihat Surat Jalan</button>
+                    </div>
+                </div>      
                 <label for="keterangan">Keterangan</label>
                 <textarea class="form-control mb-3" id="keterangan" name="keterangan"></textarea>
                 <label for="status">Status</label>
@@ -77,10 +88,31 @@ if($data['last'] != false){
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="suratJalanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLongTitle">Detail Surat Jalan</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-content" style="overflow-x: scroll;">
+        ...
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
 
 
-//Validasi pada saat Scan In (mobil masuk Pabrik)
+//Validasi pada saat Scan Out (mobil keluar Pabrik)
 function validasi()
 {
     let kmawal = document.getElementById('lastkm');
@@ -112,22 +144,89 @@ function validasi()
 
 }
 
-function getSuratJalan()
+function getPerjalananSupir()
 {
     const url = window.location.origin + '/';
-    const id = $('#sopir').val();
-    console.log(id);
+    // const url = window.location.origin + '/security/';
+    const sopir = $('#sopir').val();
+    const nopol = $('#nopol').val();
+    const btnsimpan = document.getElementById('btnsimpan');
 
     $.ajax({
-        url: url + 'api/suratjalan',
-        data: {id : id},
+        url: url + 'api/getPerjalanan',
+        data: {
+            sopir: sopir,
+            nopol: nopol
+        },
         method: 'post',
         success: function(data) {
-            $('#suratjalan').html(data);
+            if(data){
+                // btnsimpan.disabled = false;
+                // console.log(data);
+                $('#perjalanan').html(data);
+            } else {
+                // btnsimpan.disabled = true;
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Oops...',
+                    text: 'Data perjalanan Supir belum dibuat',
+                })
+            }
+
         }
 
     });
+
+
 }
+
+function popupDetailPerjalanan()
+{
+    const url = window.location.origin + '/';
+    // const url = window.location.origin + '/security/';
+    const nomor = $('#perjalanan').val();
+
+    $.ajax({
+        url: url + 'api/getDetailPerjalanan',
+        data: {
+            nomor: nomor
+        },
+        method: 'post',
+        dataType: 'json',
+        success: function(data) {
+            if(data){
+                // console.log(JSON.stringify(data));
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Detail No. : '+ data.no_transaksi,
+                    html: 'Tanggal Entry : '+ data.tgl_entry +'<br>Tujuan : '+ data.tujuan + '<br>Keterangan : ' + data.keterangan + '<br> Alamat : ' + data.alamat,
+                })
+            }
+        }
+    });
+}
+
+//function modal Tampil Detail Perjalanan
+$('.detailSuratJalan').on('click',function(){
+    const url = window.location.origin + '/';
+    // const url = window.location.origin + '/security/';
+    const nomor = $('#perjalanan').val();
+    // const nomor = '0124-III-23-HQ-KI';
+
+    $.ajax({
+        
+        url: url + 'api/suratjalan',
+        data: {nomor : nomor},
+        method: 'post',
+        success: function(data) {
+            console.log('Berhasil');
+            $('#modal-content').html(data);
+        }
+
+    });
+
+});
+
 
 
 </script>

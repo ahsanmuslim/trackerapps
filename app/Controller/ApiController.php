@@ -83,14 +83,38 @@ class ApiController extends Controller
 
     public function getSuratJalan()
     {
-        $data['sj'] = $this->model('Barang')->getBarangKeluarByDriver($_POST['id']);
-
+        $data['sj'] = $this->model('PerjalananSupir')->getDetailSuratJalan($_POST['nomor']);
         if(! empty($data['sj'])){
-            echo '<label for="suratjalan">Surat Jalan</label>';
-            foreach ($data['sj'] as $sj) {
-                echo '<input type="text" name="nosj[]" class="form-control mb-1" value="'. $sj['no_suratjalan'] .'" readonly>';
+            $this->view('Api/detailsuratjalan', $data);
+        } else {
+            echo '<h5>Data TIDAK ditemukan</h5>';
+        }
+    }
+
+    public function getRencanaKirim()
+    {
+    //    echo var_dump($_POST['sopir']);
+    //    echo var_dump($_POST['nopol']);
+        $data = $this->model('Barang')->getRencanaKirim($_POST['sopir'], $_POST['nopol']);
+        echo $data;
+    }
+
+    public function getPerjalananById()
+    {
+        $data['perjalanan'] = $this->model('PerjalananSupir')->getDataPerjalananOut($_POST['sopir'], $_POST['nopol']);
+        // var_dump($data);
+        if(! empty($data['perjalanan'])){
+            echo '<option value=""></option>';
+            foreach ($data['perjalanan'] as $p){
+                echo '<option value="' . $p['no_transaksi'] . '">' . $p['no_transaksi'] . '  (  ' . date('d-m-Y H:i:s', strtotime($p['tgl_entry'])) . ' )</option>';
             }
         }
     }
+
+    public function getDetailPerjalanan()
+    {
+        echo json_encode($this->model('PerjalananSupir')->getDetailPerjalanan($_POST['nomor']));
+    }
+
     
 }

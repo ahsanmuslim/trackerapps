@@ -18,7 +18,7 @@ use Teckindo\TrackerApps\Helper\Flasher;
                             label:not(.form-check-label) {font-weight:bold;}
                         </style>
                         <div class="col-lg">
-                            <form action="<?= BASEURL ?>/report" method="post">
+                            <form id="formreport">
                                 <div class="row">
                                     <div class="col-lg-4 my-1">
                                         <input type="date" class="form-control" name="tglawal" id="tglawal" value="" required>
@@ -51,6 +51,7 @@ use Teckindo\TrackerApps\Helper\Flasher;
                         <?php Flasher::flash(); ?>
                     </div>
                     <div class="table-responsive" id="laporan">
+
                         <table class="table table-hover" id="tblreport">
                             <thead class="thead-light">
                                 <style>
@@ -114,6 +115,10 @@ use Teckindo\TrackerApps\Helper\Flasher;
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+
+                        <!-- table load animation  -->
+
+
                     </div>
                 </div>
 

@@ -16,6 +16,7 @@
     <link href="<?= BASEURL ?>/css/sb-dark-themes.css" rel="stylesheet">
     <link href="<?= BASEURL; ?>/css/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/b-print-2.3.3/fh-3.3.1/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.0/datatables.min.css"/>
+    <script src="<?= BASEURL; ?>/js/jquery-3.5.1.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -114,7 +115,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-white small"><?= $data['userlogin']['nama_user'] ?></span>
-                                <img class="img-profile rounded-circle" src="<?= BASEURL ?>/img/<?= $data['userlogin']['profile'] ?>" alt="profile">
+                                <img class="img-profile rounded-circle" src="<?= BASEURL ?>/img/profile/<?= $data['userlogin']['profile'] ?>" alt="profile">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

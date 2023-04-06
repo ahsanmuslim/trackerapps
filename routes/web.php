@@ -34,6 +34,7 @@ Router::add('POST', '/transaksi', TransaksiController::class, 'save', [AuthMiddl
 //Router unutk transaksi
 Router::add('GET', '/report', ReportController::class, 'index', [AuthMiddleware::class]);
 Router::add('POST', '/report', ReportController::class, 'search', [AuthMiddleware::class]);
+Router::add('POST', '/report/cari', ReportController::class, 'cari', [AuthMiddleware::class]);
 
 //Router untuk kendaraan 
 Router::add('GET', '/kendaraan', KendaraanController::class, 'index', [AuthMiddleware::class]);
@@ -90,14 +91,17 @@ Router::add('POST', '/role/getEdit', RoleController::class, 'getEdit', [AuthMidd
 Router::add('POST', '/role', RoleController::class, 'save', [AuthMiddleware::class]);
 Router::add('PUT', '/role', RoleController::class, 'update', [AuthMiddleware::class]);
 Router::add('DELETE', '/role', RoleController::class, 'delete', [AuthMiddleware::class]);
-Router::add('GET', '/role/akses/([0-9a-zA-z\+_\-]*)', RoleController::class, 'akses', [AuthMiddleware::class]);
+Router::add('GET', '/role/akses/([0-9a-zA-z\+_\-/]*)', RoleController::class, 'akses', [AuthMiddleware::class]);
 Router::add('PUT', '/role/akses', RoleController::class, 'updateAkses', [AuthMiddleware::class]);
 
 //Router untuk History
 Router::add('GET', '/history', HistoryController::class, 'index', [AuthMiddleware::class]);
+Router::add('GET', '/history/edit/([0-9a-zA-z\+_\-/]*)', HistoryController::class, 'edit', [AuthMiddleware::class]);
+Router::add('PUT', '/history', HistoryController::class, 'update', [AuthMiddleware::class]);
 
 //Router unutk Profile
-Router::add('GET', '/profile', ProfileController::class, 'getLocation', [AuthMiddleware::class]);
+Router::add('GET', '/profile', ProfileController::class, 'index', [AuthMiddleware::class]);
+Router::add('PUT', '/profile', ProfileController::class, 'update', [AuthMiddleware::class]);
 
 //Testing API Firman Indonesia
 Router::add('GET', '/api/kendaraan', ApiController::class, 'getKendaraan', [AuthMiddleware::class]);
@@ -105,8 +109,12 @@ Router::add('GET', '/api/driver', ApiController::class, 'getDriver', [AuthMiddle
 Router::add('GET', '/api/codriver', ApiController::class, 'getCodriver', [AuthMiddleware::class]);
 Router::add('GET', '/api/perjalanandriver', ApiController::class, 'getPerjalanan', [AuthMiddleware::class]);
 Router::add('POST', '/api/perjalanandriver', ApiController::class, 'getPerjalananDetail', [AuthMiddleware::class]);
+Router::add('POST', '/api/perjalanandriver', ApiController::class, 'getPerjalananDetail', [AuthMiddleware::class]);
 Router::add('GET', '/api/barangkeluar', ApiController::class, 'getBarangKeluar', [AuthMiddleware::class]);
 Router::add('POST', '/api/suratjalan', ApiController::class, 'getSuratJalan', [AuthMiddleware::class]);
+Router::add('POST', '/api/cekrencanakirim', ApiController::class, 'getRencanaKirim', [AuthMiddleware::class]);
+Router::add('POST', '/api/getPerjalanan', ApiController::class, 'getPerjalananById', [AuthMiddleware::class]);
+Router::add('POST', '/api/getDetailPerjalanan', ApiController::class, 'getDetailPerjalanan', [AuthMiddleware::class]);
 
 
 

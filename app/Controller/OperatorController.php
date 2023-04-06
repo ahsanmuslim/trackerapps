@@ -38,8 +38,9 @@ class OperatorController extends Controller
     public function save()
     {
         $respon = Security::verifyToken($_POST);
+        $data['userlogin'] = $this->userlogin;
 		if($respon['type']){
-            if ($this->model('Operator')->saveData($_POST) > 0) {
+            if ($this->model('Operator')->saveData($_POST, $data['userlogin']['id_user']) > 0) {
                 Flasher::setFlash('Berhasil', 'ditambahkan', 'success', 'operator', '');
                 header('Location: ' . BASEURL . '/operator');
                 exit;

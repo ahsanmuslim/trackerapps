@@ -47,7 +47,7 @@ $csrftoken = Security::csrfToken();
                                     <th class="judul">No.</th>
                                     <th>No Kendaraan</th>
                                     <th>Tipe Kendaraan</th>
-                                    <th>Warna</th>
+                                    <th>Jenis</th>
                                     <th>Tahun</th>
                                     <th>Masa Berlaku</th>
                                     <th>Km</th>
@@ -76,10 +76,10 @@ $csrftoken = Security::csrfToken();
                                         <td class="judul"><?= $no++ ?></td>
                                         <td><?= $r['no_polisi'] ?></td>
                                         <td><?= $r['type'] ?></td>
-                                        <td><?= $r['warna'] ?></td>
+                                        <td><?= $r['jenis'] ?></td>
                                         <td><?= $r['tahun'] ?></td>
                                         <td><?= date('d M y', strtotime($r['masa_berlaku'])) ?></td>
-                                        <td><?= $r['km'] ?></td>
+                                        <td><?= number_format($r['km'], 1) ?></td>
                                         <td class="text-<?= $text ?> font-weight-bold judul"><?= $status ?></td>
                                         <td><?= $r['jam'] ?></td>
                                         <td class="judul">

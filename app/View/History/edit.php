@@ -25,20 +25,19 @@ $csrftoken = Security::csrfToken();
         <div class="col-lg-6">
             <div class="card mb-0">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-dark">Tambah Operator</h6>
+                    <h6 class="m-0 font-weight-bold text-dark">Edit Operator</h6>
                 </div>
                 <div class="card-body">
                     <div class="col-lg">
 
                         <form action="<?= BASEURL; ?>/operator" method="post">
                         <input type="hidden" value="<?= $csrftoken ?>" name="csrftoken">
-                        <div class="form-group">
-                            <label for="id">ID Operator</label>
-                            <input type="text" id="id" name="id" required autofocus class="form-control">
-                        </div>
+                        <input type="hidden" value="PUT" name="_method">
+                        
                         <div class="form-group">
                             <label for="nama">Nama Operator</label>
-                            <input type="text" name="nama" id="nama" class="form-control" required maxLength="50" minLength="3" pattern="^[a-zA-Z ]*$" autofocus>
+                            <input type="text" name="nama" id="nama" class="form-control" required maxLength="50" minLength="3" pattern="^[a-zA-Z ]*$" value="<?= $data['operator']['nama'] ?>">
+                            <input type="hidden" value="<?= $data['operator']['id'] ?>" name="id">
                             <div class="valid-feedback">Looks good!</div>
                             <div class="invalid-feedback">
                                 Panjang karakter : 6 ~ 50 & menggunakan huruf semua !!
@@ -47,24 +46,24 @@ $csrftoken = Security::csrfToken();
                         <div class="form-group">
                             <label for="jenis">Jenis</label>
                             <select name="jenis" class="form-control" id="jenis" required>
-                                <option value="Sopir">Sopir</option>
-                                <option value="Kenek">Kenek</option>
+                                <option value="Sopir" <?= ($data['operator']['jenis'] == "Sopir") ? 'selected' : '' ?>>Sopir</option>
+                                <option value="Kenek" <?= ($data['operator']['jenis'] == "Kenek") ? 'selected' : '' ?>>Kenek</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="ket">Keterangan</label>
-                            <input type="text" name="ket" id="ket" class="form-control">
+                            <input type="text" name="ket" id="ket" class="form-control" value="<?= $data['operator']['keterangan'] ?>">
                         </div>
                         <div class="form-group">
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-control" required>
-                                <option value=1>Aktif</option>
-                                <option value=0>Tidak Aktif</option>
+                                <option value=1 <?= ($data['operator']['is_active'] == 1) ? 'selected' : '' ?>>Aktif</option>
+                                <option value=0 <?= ($data['operator']['is_active'] == 0) ? 'selected' : '' ?>>Tidak Aktif</option>
                             </select>
                         </div><br>
 
                         <div class="form-group text-center">
-                            <input type="submit" name="simpan" value="SIMPAN" class="btn btn-dark btn-block py-3 font-weight-bold">
+                            <input type="submit" name="update" value="UPDATE" class="btn btn-warning btn-block py-3 font-weight-bold">
                         </div>
 
                         </form>
@@ -79,6 +78,7 @@ $csrftoken = Security::csrfToken();
 <!-- /.container-fluid -->
 
 </div>
+
 
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields

@@ -22,27 +22,20 @@ class ProfileController extends Controller
         $data['title'] = "Tracker App - Profile";
 		$data['userlogin'] = $this->userlogin;
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
-        $this->view('templates/header', $data);
-        $this->view('Profile/index', $data);
-        $this->view('templates/footer');
-    }
-
-    public function edit():void
-    {
-        $data['title'] = "Tracker App - Profile";
-		$data['userlogin'] = $this->userlogin;
-        $this->view('templates/header', $data);
-        $this->view('Profile/edit', $data);
-        $this->view('templates/footer');
+        $data['user'] = $this->model('User')->getUser();
+        $this->view('Templates/header', $data);
+        $this->view('Profile/index2', $data);
+        $this->view('Templates/footer');
     }
 
     public function update():void
     {
+        // var_dump($_POST);
+        // var_dump($_FILES); exit;
         $data['datauser'] = $this->userlogin;
         $file_lama = $data['datauser']['profile'];
 
         $upload_gambar = $_FILES['profile']['name'];
-        // var_dump(gd_info());
 
         $respon = Security::verifyToken($_POST);
 		if($respon['type']){
@@ -58,10 +51,10 @@ class ProfileController extends Controller
 
                 if (in_array($ekstensi, $ekstensi_std) === true) {
                     if ($ukuran < 2000000) {
-                        Image::compress($file_temp, 'img/' . $nama_file , 100);
+                        Image::compress($file_temp, 'img/profile/' . $nama_file , 100);
                         self::simpanGambar($nama_file, $file_lama, $upload_gambar);
                     } else {
-                        Image::compress($file_temp, 'img/' . $nama_file , 50);
+                        Image::compress($file_temp, 'img/profile/' . $nama_file , 50);
                         self::simpanGambar($nama_file, $file_lama, $upload_gambar);
                     }
                 } else {
@@ -93,7 +86,7 @@ class ProfileController extends Controller
     public function simpanGambar($nama_file, $file_lama, $upload_gambar):void
     {
         if ($file_lama != 'default.jpg' && $file_lama != $nama_file) {
-            unlink('img/' . $file_lama);
+            unlink('img/profile/' . $file_lama);
         }
         if ($this->model('User')->update($_POST, $nama_file) > 0 or $upload_gambar) {
             Flasher::setFlash('Berhasil', 'diupdate', 'success', 'profile', '');

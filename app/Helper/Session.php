@@ -32,7 +32,7 @@ class Session extends Controller
             //generate JWT, set cookie option dan simpan JWT di Cookie
             $jwt = JWT::encode($payload, self::$SECRET_KEY, 'HS256');
             $option = [
-                "expires" => time()+ $app['lifetime'],
+                // "expires" => time()+ $app['lifetime'],
                 "httponly" => true,
                 "secure" => false,
                 "path" => "",
@@ -72,5 +72,11 @@ class Session extends Controller
         } else {
             return false;
         }
+
+        // if(isset($_SESSION['username'])){
+        //     return true;
+        // } else {
+        //     return false;
+        // }
     }
 }

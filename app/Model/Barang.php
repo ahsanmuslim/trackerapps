@@ -30,4 +30,11 @@ class Barang
 		return $this->dbf->resultSet();
     }
 
+    public function getRencanaKirim($sopir, $nopol)
+    {
+        $query = "SELECT count(no_transaksi) FROM perjalanan_supir WHERE kd_driver ='" .$sopir. "' and kd_kendaraan='" .$nopol. "'";
+        $this->dbf->query($query); 
+        return $this->dbf->numRow();
+    }
+
 }

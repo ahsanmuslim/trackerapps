@@ -45,6 +45,7 @@ $csrftoken = Security::csrfToken();
                                 </style>
                                 <tr>
                                     <th class="judul">No.</th>
+                                    <th>Kode</th>
                                     <th>Nama</th>
                                     <th>Jenis</th>
                                     <th>Keterangan</th>
@@ -71,6 +72,7 @@ $csrftoken = Security::csrfToken();
                             ?>
                                 <tr>
                                     <td class="judul"><?= $no++ ?></td>
+                                    <td><?= $r['id'] ?></td>
                                     <td><?= $r['nama'] ?></td>
                                     <td><?= $r['jenis'] ?></td>
                                     <td><?= $r['keterangan'] ?></td>

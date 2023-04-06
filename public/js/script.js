@@ -3,6 +3,33 @@ $(document).ready(function () {
     const url = window.location.origin + '/';
     // const url = window.location.origin + '/security/';
 
+   // Define the animation HTML
+    const animation = '<div id="loading-animation" style="height:100vh; width:100vw; position: fixed; top: 0; left: 0; background: rgba(255, 255, 255, 0.9); z-index: 9999; display: flex; justify-content: center; align-items: center;"><img src="http://localhost:8000/img/dual-ring.gif"></div>';
+
+    $('#formreport').submit(function(e){
+        e.preventDefault();
+
+        $.ajax({
+            url: url + 'report/cari',
+            method: 'POST',
+            data: $('#formreport').serialize(),
+            beforeSend: function(){
+                // $('#loading-animation').show();
+                $('#laporan').html(animation)
+            },
+            success: function(response){
+                $('#laporan').html(response)
+            },
+            error: function(xhr, status, err){
+                console.log(err)
+            }
+            // complete: function(){
+            //     $('#loading-animation').hide();
+            // }
+        });
+    });
+
+
     //function modal Generate QR Code
     $('.qrcodeModal').on('click',function(){
 
@@ -223,6 +250,62 @@ $(document).ready(function () {
                 orientation: 'landscape',
                 pageSize: 'A4',
                 title: 'Data Kendaraan operasional',
+                download: 'open'
+            },
+            'excel', 'print', 'copy'
+        ]
+
+    });
+
+    //fungsi untuk memanggil datatable Library dengan metode Client Side PRocessing
+    $('#tbloperator').DataTable({
+        columnDefs: [{
+            "searchable": false,
+            "orderable": false,
+            "targets": [6]
+        }],
+        "order": [0, "asc"],
+
+        "lengthMenu": [50, 75, 100],
+
+        dom: 'Bfrtip',
+        dom: 
+            "<'row mb-2'<'col-lg-6'B><'col-lg-6'f>>" +
+            "<'row'<'col-lg-12'tr>>" +
+            "<'row mb-3 mt-t'<'col-lg-6'i><'col-lg-6'p>>",
+        buttons: [{
+                extend: 'pdf',
+                orientation: 'landscape',
+                pageSize: 'A4',
+                title: 'Data Driver & Co Driver',
+                download: 'open'
+            },
+            'excel', 'print', 'copy'
+        ]
+
+    });
+
+    //fungsi untuk memanggil datatable Library dengan metode Client Side PRocessing
+    $('#tblgeneral').DataTable({
+        columnDefs: [{
+            "searchable": false,
+            "orderable": false,
+            "targets": [6]
+        }],
+        "order": [0, "asc"],
+
+        "lengthMenu": [50, 75, 100],
+
+        dom: 'Bfrtip',
+        dom: 
+            "<'row mb-2'<'col-lg-6'B><'col-lg-6'f>>" +
+            "<'row'<'col-lg-12'tr>>" +
+            "<'row mb-3 mt-t'<'col-lg-6'i><'col-lg-6'p>>",
+        buttons: [{
+                extend: 'pdf',
+                orientation: 'landscape',
+                pageSize: 'A4',
+                title: 'Data Driver & Co Driver',
                 download: 'open'
             },
             'excel', 'print', 'copy'

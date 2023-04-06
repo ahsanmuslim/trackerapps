@@ -28,12 +28,23 @@ use chillerlan\QRCode\QROptions;
         box-shadow: 0;
       }
     }
+    /* * {
+        border: 1px solid red;
+    } */
 
     .container {
         margin-top: 30px;
         border: 3px solid black;
         padding: 0;
         width: 60%;
+        position: relative;
+    }
+
+    .nopolisi {
+        font-weight: bold;
+        position: absolute;
+        bottom: 15px;
+        left: 45%;
     }
 
     .image {
@@ -60,7 +71,7 @@ use chillerlan\QRCode\QROptions;
         $qrcode = (new QRCode($options))->render($data['mobil']['id_mobil']);
         echo '<img src="' . $qrcode . '" alt="qrcode" width="100%">';
         ?>
-
+        <span class="nopolisi"><?= $data['mobil']['no_polisi'] ?></span>
     </div>
 </page>
 </body>

@@ -36,10 +36,10 @@ if($data['last'] != false){
                 <input type="date" name="tanggal" id="tanggal" value="<?=date('Y-m-d')?>" class="form-control mb-3" readonly>
                 <label for="jam">Jam Masuk</label>
                 <input type="datetime" name="jam" id="jam" value="<?= date("Y-m-d H:i:s") ?>" class="form-control mb-3" readonly>
-                <label for="lastkm">Odometer Terakhir</label>
+                <label for="lastkm">Kilometer Awal</label>
                 <input type="number" name="lastkm" id="lastkm" class="form-control mb-3" value="<?= $lastkm ?>" readonly>
-                <label for="km">Odometer</label>
-                <input type="number" name="km" id="km" class="form-control mb-3" onkeyup="validasi()" required>
+                <label for="km">Kilometer Akhir</label>
+                <input type="number" name="km" id="km" class="form-control mb-3" step="any" onkeyup="validasi()" required>
                 <div class="invalid-feedback mb-2">
                     Data tidak valid
                 </div>
@@ -67,6 +67,13 @@ if($data['last'] != false){
                             <option value="<?= $kenek['nama'] ?>" <?php if($kenek['nama'] == $lastkenek) {echo 'selected';} ?>><?= $kenek['nama'] ?></option>
                     <?php } ?>
                 </select>
+                <label for="perjalanan">Data perjalanan supir</label>
+                <select name="perjalanan" id="perjalanan" class="form-control" onchange="popupDetailPerjalanan()">
+                    <option value=""></option>
+                    <?php foreach ($data['perjalanan'] as $p) { ?>
+                        <option value="<?= $p['no_transaksi'] ?>"><?= $p['no_transaksi'] ?> (<?= date('d-m-Y H:i:s', strtotime($p['tgl_entry'])) ?>)</option>
+                    <?php } ?>
+                </select>
                 <label for="keterangan">Keterangan</label>
                 <textarea class="form-control mb-3" id="keterangan" name="keterangan"></textarea>
                 <label for="status">Status</label>
@@ -80,6 +87,7 @@ if($data['last'] != false){
         </div>
     </div>
 </div>
+
 
 <script type="text/javascript">
 
@@ -96,6 +104,9 @@ function validasi()
     const bad_color  = "#FFD0C6";
 
     let selisih = akhir - awal;
+    console.log(akhir);
+    console.log(awal);
+    console.log(selisih);
 
     if(selisih > 200 && selisih < 2000){
         Swal.fire(
@@ -117,5 +128,32 @@ function validasi()
 
 
 }
+
+function popupDetailPerjalanan()
+{
+    const url = window.location.origin + '/';
+    // const url = window.location.origin + '/security/';
+    const nomor = $('#perjalanan').val();
+
+    $.ajax({
+        url: url + 'api/getDetailPerjalanan',
+        data: {
+            nomor: nomor
+        },
+        method: 'post',
+        dataType: 'json',
+        success: function(data) {
+            if(data){
+                // console.log(JSON.stringify(data));
+                Swal.fire({
+                    icon: 'info',
+                    title: data.no_transaksi,
+                    html: 'Tanggal Entry : '+ data.tgl_entry +'<br>Tujuan : '+ data.tujuan + '<br>Keterangan : ' + data.keterangan + '<br> Alamat : ' + data.alamat,
+                })
+            }
+        }
+    });
+}
+
 
 </script>

@@ -76,6 +76,7 @@ use Teckindo\TrackerApps\Helper\Flasher;
                                 <th>Tanggal</th>
                                 <th>Kilometer</th>
                                 <th>User</th>
+                                <th>ID Perjalanan</th>
                                 <th>Keterangan</th>
                                 <th class="judul"><i class="fas fa-cog"></i></th>
                             </tr>
@@ -96,13 +97,14 @@ use Teckindo\TrackerApps\Helper\Flasher;
                                     <td class="judul"><?= $no++ ?></td>
                                     <td><?= $r['no_polisi'] ?></td>
                                     <td><?= $r['type'] ?></td>
-                                    <td><?= $r['sopir'] ?></td>
+                                    <td><?= $r['nama'] ?></td>
                                     <td><?= $r['kenek'] ?></td>
                                     <td><?= $r['nama_divisi'] ?></td>
                                     <td class="text-<?= $text ?> font-weight-bold judul"><?= $r['status'] ?></td>
                                     <td><?= $r['jam'] ?></td>
-                                    <td><?= $r['km'] ?></td>
+                                    <td><?= number_format($r['km'], 1) ?></td>
                                     <td><?= $r['username'] ?></td>
+                                    <td><?= $r['id_perjalanan'] ?></td>
                                     <td><?= $r['keterangan'] ?></td>
                                     <td class="judul">
                                         <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-pen"></i></a>

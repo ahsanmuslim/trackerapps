@@ -18,7 +18,7 @@ class ReportController extends Controller
         $data['menu'] = $this->model('Menu')->getMenuActive($data['userlogin']['username']);
         $data['report'] = $this->model('Report')->getReportAll();
         $this->view('Templates/header', $data);
-        $this->view('Report/index', $data);
+        $this->view('Report/index2', $data);
         $this->view('Templates/footer');
     }
     
@@ -32,5 +32,10 @@ class ReportController extends Controller
         $this->view('Templates/header', $data);
 		$this->view('Report/cari', $data);
         $this->view('Templates/footer');
+    }
+    
+    public function cari()
+    {
+         $data['report'] = $this->model('Report')->getReportByDate();        $this->view('Report/getreport', $data);
     }
 }

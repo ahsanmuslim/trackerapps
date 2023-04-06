@@ -36,7 +36,7 @@
 
     
     <!-- Bootstrap core JavaScript-->
-    <script src="<?= BASEURL; ?>/js/jquery-3.5.1.min.js"></script>
+    <!-- <script src="<?= BASEURL; ?>/js/jquery-3.5.1.min.js"></script> -->
     <script src="<?= BASEURL; ?>/js/bootstrap.min.js"></script>
     <script src="<?= BASEURL; ?>/js/moment.min.js"></script>
 

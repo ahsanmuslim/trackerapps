@@ -80,15 +80,13 @@ class User
 
     public function update($data, $nama_file)
     {
-        $query = "UPDATE c SET 
-                    nama_user =:namauser,
+        $query = "UPDATE user SET 
                     profile =:profile
                     WHERE id_user =:id_user";
 
         $this->db->query($query);
 
         $this->db->bind('id_user', $data['id_user']);
-        $this->db->bind('namauser', $data['namauser']);
         $this->db->bind('profile', $nama_file);
 
         $this->db->execute();

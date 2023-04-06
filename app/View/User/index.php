@@ -74,6 +74,7 @@ $csrftoken = Security::csrfToken();
                                         <button class="btn btn-sm btn-primary"><i class="fas fa-user-shield"></i></button>
                                     <?php } else { ?>
                                     <a href="<?= BASEURL ?>/user/edit/<?= $r['id_user'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-pen"></i></a>
+                                    <a href="#" class="btn btn-primary btn-sm ttdUserModal" data-toggle="modal" data-target="#ttdUserModal" data-user="<?= $r['id_user']; ?>"><i class="fas fa-fw fa-signature"></i></a>
                                     <form action="<?= BASEURL ?>/user" method="POST" class="d-inline">
                                         <input type="hidden" value="DELETE" name="_method">
                                         <input type="hidden" value="<?= $csrftoken ?>" name="csrftoken">
@@ -94,3 +95,82 @@ $csrftoken = Security::csrfToken();
 <!-- /.container-fluid -->
 
 </div>
+
+<!-- Modal Share Dokument-->
+<div class="modal fade" id="ttdUserModal" tabindex="-1" role="dialog" aria-labelledby="shareModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLongTitle"><span class="text-sm-left">Update TTD User : </span>  <span class="badge badge-primary" id="judul"></span></h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?= BASEURL; ?>/user/ttd" method="post" enctype="multipart/form-data">
+            <input type="hidden" value="PUT" name="_method">
+            <input type="hidden" value="<?= $csrftoken ?>" name="csrftoken">
+            <input type="hidden" value="" name="id_user" id="id_user">
+            <label for="file_upload">Pilih file ttd yang akan diupload</label>
+            <div class="custom-file">
+                <input type="file" class="ttd-file-input" id="file_upload" name="file_upload" required> 
+                <label class="custom-file-label" for="file_upload">Format file harus gambar</label>
+            </div>
+      </div>
+      <div class="modal-footer">
+            <button type="submit" class="btn btn-warning">Upload TTD</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+$('.ttdUserModal').on('click',function(){
+
+const id = $(this).data('user');
+$('#id_user').val(id);
+
+});
+
+//fungsi untuk menampilka nama file ynag di upload
+$('.ttd-file-input').on('change', function () {
+
+    var size =(this.files[0].size);
+    var inputFile = document.getElementById('file_upload');
+    var pathFile = inputFile.value;
+    var ekstensiOk = /(\.jpg|\.png)$/i;
+
+    if(size > 2000000) {
+        //disabled tomol submit
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        $(':input[type="submit"]').prop('disabled', true);
+        //menampilkan sweet alert jika file terlalu besar
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'File yang Anda upload lebih dari 2Mb !!',
+        })
+    } else if(!ekstensiOk.exec(pathFile)){
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        $(':input[type="submit"]').prop('disabled', true);
+        //menampilkan sweet alert file extensi Tidak Sesuai
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Extensi File yang Anda upload tidak sesuai !!',
+        })
+    } else {
+        //merubah value field dengan nama file
+        $(':input[type="submit"]').prop('disabled', false);
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    }
+
+
+});
+</script>
